@@ -17,5 +17,6 @@ export const HeaderWrapper = styled.header`
     border-radius: 16px;
     background-color: #ef6f6c;
     padding: 6px;
+    cursor: pointer;
   }
 `;

@@ -12,6 +12,7 @@ export const InputWrapper = styled.div`
   padding: 8px 18px;
 
   input {
+    width: 100%;
     border: none;
     outline: none;
     color: #333;
