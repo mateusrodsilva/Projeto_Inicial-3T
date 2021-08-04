@@ -7,12 +7,12 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Quicksand", sans-serif;
   }
 
   html, body {
     min-height: 100vh;
     width: 100%;
-    font-family: "Quicksand", sans-serif;
     background-color: #fff;
   }
 

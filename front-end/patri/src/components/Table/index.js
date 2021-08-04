@@ -20,20 +20,7 @@ export function Table({ columns, data, role }) {
       <tr key={index}>
         {items.slice(1).map((row, index) => (
           <td key={index}>
-            <span>
-              {row.key === 'Descrição' &&
-              inEditMode.status &&
-              inEditMode.rowKey === item.id ? (
-                <input
-                  className="table__input"
-                  type="text"
-                  defaultValue={row.value}
-                  onChange={(e) => setDesc(e.target.value)}
-                />
-              ) : (
-                row.value
-              )}
-            </span>
+            <span>{row.value}</span>
           </td>
         ))}
         <td className="tableIcons">

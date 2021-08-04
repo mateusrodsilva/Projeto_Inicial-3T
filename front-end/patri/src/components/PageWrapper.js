@@ -16,5 +16,10 @@ export const PageWrapper = styled.section`
     align-items: center;
     justify-content: space-between;
     margin-top: 24px;
+
+    .tableButtons {
+      display: flex;
+      gap: 12px;
+    }
   }
 `;

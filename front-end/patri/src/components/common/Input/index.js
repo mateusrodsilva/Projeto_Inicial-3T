@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const InputWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   border: none;
   outline: none;
   border-radius: 16px;

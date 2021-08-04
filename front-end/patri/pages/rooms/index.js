@@ -31,7 +31,7 @@ export default function Rooms() {
           icon={<AiOutlineSearch className="searchIcon" />}
           placeholder="Buscar"
         />
-        <Button>+ Nova sala</Button>
+        <Button colorType="done">+ Nova sala</Button>
       </div>
       <Table columns={roomsColumns} data={roomsData} role="1" />
     </PageWrapper>
