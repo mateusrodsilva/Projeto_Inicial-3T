@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const SidebarWrapper = styled.aside`
-  width: 250px;
+  min-width: 215px;
   height: 100%;
   background-color: #f5f5f5;
   font-size: 16px;
@@ -14,7 +14,7 @@ export const SidebarWrapper = styled.aside`
   a {
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 8px;
     font-size: 16px;
     color: #333;
     text-decoration: none;

@@ -1,7 +1,10 @@
 import React from 'react';
-import { Header } from '../src/components/Header';
-import { Main } from '../src/components/Main';
+import { PageWrapper } from '../src/components/PageWrapper';
 
 export default function Home() {
-  return <h1>Home</h1>;
+  return (
+    <PageWrapper>
+      <h1>Painel de controle</h1>
+    </PageWrapper>
+  );
 }

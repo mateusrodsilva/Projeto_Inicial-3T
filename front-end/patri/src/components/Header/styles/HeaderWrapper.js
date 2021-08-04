@@ -13,7 +13,7 @@ export const HeaderWrapper = styled.header`
   border-radius: 0 0 16px 16px;
 
   .logoutIcon {
-    font-size: 34px;
+    font-size: 28px;
     border-radius: 16px;
     background-color: #ef6f6c;
     padding: 6px;

@@ -10,7 +10,7 @@ export function Sidebar() {
     <SidebarWrapper>
       <div>
         <div className="sidebarItem">
-          <NextLink href="/dashboard" passHref>
+          <NextLink href="/" passHref>
             <a>
               <RiDashboardLine />
               <span>Painel de controle</span>

@@ -23,7 +23,7 @@ export default function Rooms() {
   return (
     <PageWrapper>
       <h1>Salas</h1>
-      <Table columns={roomsColumns} data={roomsData} />
+      <Table columns={roomsColumns} data={roomsData} role="1" />
     </PageWrapper>
   );
 }

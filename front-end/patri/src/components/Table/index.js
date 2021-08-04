@@ -1,5 +1,6 @@
 import React from 'react';
 import { FiEdit, FiTrash } from 'react-icons/fi';
+import { TableWrapper } from './styles/TableWrapper';
 
 export function Table({ columns, data, role }) {
   const mappedData = data.map((item, index) => {
@@ -35,17 +36,17 @@ export function Table({ columns, data, role }) {
             </span>
           </td>
         ))}
-        <td className="table__icons">
-          <FiEdit className="table__edit-icon" />
-          <FiTrash className="table__delete-icon" />
+        <td className="tableIcons">
+          <FiEdit className="tableEditIcon" />
+          <FiTrash className="tableDeleteIcon" />
         </td>
       </tr>
     );
   });
 
   return (
-    <div className="table__container">
-      <table className="table__data-table">
+    <TableWrapper>
+      <table>
         <thead>
           <tr>
             {columns.slice(1).map((column, index) => (
@@ -56,6 +57,6 @@ export function Table({ columns, data, role }) {
         </thead>
         <tbody>{mappedData}</tbody>
       </table>
-    </div>
+    </TableWrapper>
   );
 }
