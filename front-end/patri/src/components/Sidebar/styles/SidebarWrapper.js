@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const SidebarWrapper = styled.aside`
-  width: 200px;
-  height: 100vh;
+  width: 250px;
+  height: 100%;
   background-color: #f5f5f5;
   font-size: 16px;
   border-radius: 16px;
@@ -11,9 +11,12 @@ export const SidebarWrapper = styled.aside`
   align-items: center;
   padding: 24px;
 
-  .sidebarItem {
+  a {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 18px;
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
   }
 `;

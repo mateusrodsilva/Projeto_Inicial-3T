@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import Layout from '../src/components/Layout';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -13,6 +14,10 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     font-family: "Quicksand", sans-serif;
     background-color: #fff;
+  }
+
+  #__next {
+    height: 100%;
   }
 `;
 
@@ -36,7 +41,9 @@ export default function App({ Component, pageProps }) {
       </Head>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </ThemeProvider>
     </>
   );
