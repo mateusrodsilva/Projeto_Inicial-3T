@@ -5,7 +5,7 @@ export const TableWrapper = styled.div`
   background-color: #fff;
   border-radius: 16px;
   color: #333;
-  margin-top: 24px;
+  margin-top: 12px;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 0 18px;

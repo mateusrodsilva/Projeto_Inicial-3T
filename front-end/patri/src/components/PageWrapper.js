@@ -10,4 +10,11 @@ export const PageWrapper = styled.section`
     font-size: 28px;
     color: #333;
   }
+
+  .tableInteraction {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 24px;
+  }
 `;
