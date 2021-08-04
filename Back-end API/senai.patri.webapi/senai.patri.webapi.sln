@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "patri.senai.webapi", "patri.senai.webapi\patri.senai.webapi.csproj", "{B4D543A1-BFDD-4C14-9FC3-710C7C8A1903}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "senai.patri.webapi", "senai.patri.webapi\senai.patri.webapi.csproj", "{B866D807-54E3-4850-92CF-BE284206FE3A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B4D543A1-BFDD-4C14-9FC3-710C7C8A1903}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B4D543A1-BFDD-4C14-9FC3-710C7C8A1903}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B4D543A1-BFDD-4C14-9FC3-710C7C8A1903}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B4D543A1-BFDD-4C14-9FC3-710C7C8A1903}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B866D807-54E3-4850-92CF-BE284206FE3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B866D807-54E3-4850-92CF-BE284206FE3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B866D807-54E3-4850-92CF-BE284206FE3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B866D807-54E3-4850-92CF-BE284206FE3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {4C58EED4-33BB-4C44-BED1-F9389DFEEF6E}
+		SolutionGuid = {D222A43C-0F82-4466-BAD4-BC21FF131BEB}
 	EndGlobalSection
 EndGlobal

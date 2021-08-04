@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace patri.senai.webapi
+namespace senai.patri.webapi
 {
     public class Program
     {

@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:41868",
+      "applicationUrl": "http://localhost:3535",
       "sslPort": 0
     }
   },
@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "patri.senai.webapi": {
+    "senai.patri.webapi": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

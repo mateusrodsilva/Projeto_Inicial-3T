@@ -13,7 +13,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace patri.senai.webapi
+namespace senai.patri.webapi
 {
     public class Startup
     {
@@ -39,10 +39,11 @@ namespace patri.senai.webapi
                 );
             });
 
+
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "patri.senai.webApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "senai.patri.webApi", Version = "v1" });
                 c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 
                 // Set the comments path for the Swagger JSON and UI.
@@ -74,13 +75,13 @@ namespace patri.senai.webapi
                         IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("patri-autenticacao")),
 
                         //Valida o tempo de expiracao do token
-                        ClockSkew = TimeSpan.FromMinutes(60),
+                        ClockSkew = TimeSpan.FromMinutes(30),
 
                         //Nome de quem emitiu
-                        ValidIssuer = "patri.senai.webApi",
+                        ValidIssuer = "senai.patri.webApi",
 
                         //Nome de quem recebeu
-                        ValidAudience = "patri.senai.webApi"
+                        ValidAudience = "senai.patri.webApi"
                     };
                 });
         }
@@ -88,13 +89,14 @@ namespace patri.senai.webapi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "patri.senai.webApi");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "senai.patri.webApi");
             });
 
             if (env.IsDevelopment())
