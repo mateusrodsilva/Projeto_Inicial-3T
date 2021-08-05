@@ -15,6 +15,12 @@ export const HeaderWrapper = styled.header`
     color: #fff;
   }
 
+  .headerIcons {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
   .logoutIcon {
     font-size: 28px;
     border-radius: 16px;

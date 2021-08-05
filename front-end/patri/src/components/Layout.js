@@ -50,7 +50,7 @@ const LayoutWrapper = styled.div`
   }
 `;
 
-export default function Layout({ children }) {
+export default function Layout({ children, toggleTheme }) {
   const router = useRouter();
 
   return (
@@ -59,7 +59,7 @@ export default function Layout({ children }) {
         children
       ) : (
         <Main>
-          {router.pathname !== '/login' && <Header />}
+          {router.pathname !== '/login' && <Header toggleTheme={toggleTheme} />}
           {router.pathname !== '/login' && <Sidebar />}
           {children}
         </Main>

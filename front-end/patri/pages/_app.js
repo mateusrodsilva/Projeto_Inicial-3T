@@ -1,36 +1,17 @@
 import Head from 'next/head';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyle } from '../src/theme/GlobalStyle';
+import { light, dark } from '../src/theme';
+import { usePersistedState } from '../src/hooks/usePersistedState';
 import Layout from '../src/components/Layout';
 
-const GlobalStyle = createGlobalStyle`
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Quicksand", sans-serif;
-  }
-
-  html, body {
-    min-height: 100vh;
-    width: 100%;
-    background-color: #fff;
-  }
-
-  #__next {
-    min-height: 100vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-`;
-
-const theme = {
-  colors: {
-    primary: '#0070f3',
-  },
-};
-
 export default function App({ Component, pageProps }) {
+  const [theme, setTheme] = usePersistedState('theme', light);
+
+  function toggleTheme() {
+    setTheme(theme.title === 'light' ? dark : light);
+  }
+
   return (
     <>
       <Head>
@@ -61,9 +42,9 @@ export default function App({ Component, pageProps }) {
           rel="stylesheet"
         />
       </Head>
-      <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <Layout>
+        <GlobalStyle />
+        <Layout toggleTheme={toggleTheme}>
           <Component {...pageProps} />
         </Layout>
       </ThemeProvider>

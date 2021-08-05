@@ -8,6 +8,7 @@ export const PageWrapper = styled.section`
 
   h1 {
     font-size: 28px;
+    font-weight: 400;
     color: #333;
   }
 
