@@ -39,5 +39,7 @@ namespace senai.patri.webapi.Interfaces
         /// </summary>
         /// <param name="id">Id do Equipamento que será deletado</param>
         void Deletar(int id);
+
+        List<Equipamento> BuscarEquipamentosSala(int idSala);
     }
 }
