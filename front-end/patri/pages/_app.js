@@ -1,15 +1,33 @@
 import Head from 'next/head';
+import { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from '../src/theme/GlobalStyle';
 import { light, dark } from '../src/theme';
-import { usePersistedState } from '../src/hooks/usePersistedState';
 import Layout from '../src/components/Layout';
+import nookies, { setCookie } from 'nookies';
 
 export default function App({ Component, pageProps }) {
-  const [theme, setTheme] = usePersistedState('theme', light);
+  const themeValue = nookies.get().theme;
+  console.log(themeValue);
+
+  const [theme, setTheme] = useState(light);
 
   function toggleTheme() {
-    setTheme(theme.title === 'light' ? dark : light);
+    if(theme.title === 'light') {
+      setCookie(null, 'theme', JSON.stringify(dark), {
+        maxAge: 86400 * 7,
+        path: '/',
+      })
+      setTheme(dark);
+    }
+    
+    if(theme.title === 'dark') {
+      setCookie(null, 'theme', JSON.stringify(light), {
+        maxAge: 86400 * 7,
+        path: '/',
+      })
+      setTheme(light);
+    }
   }
 
   return (
