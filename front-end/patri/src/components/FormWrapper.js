@@ -27,7 +27,7 @@ export const FormWrapper = styled.div`
     gap: 12px;
   }
 
-  .loginLinks {
+  .links {
     display: flex;
     align-items: center;
     justify-content: space-between;
