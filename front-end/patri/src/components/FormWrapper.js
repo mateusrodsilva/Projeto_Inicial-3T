@@ -10,7 +10,7 @@ export const FormWrapper = styled.div`
   margin: auto;
 
   svg {
-    margin-bottom: 32px;
+    margin-bottom: 48px;
     align-self: center;
   }
 
@@ -30,8 +30,9 @@ export const FormWrapper = styled.div`
   .loginLinks {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
-    margin-top: 32px;
+    margin-top: 56px;
 
     > div {
       width: 200px;

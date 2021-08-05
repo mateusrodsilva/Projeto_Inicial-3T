@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const HeaderWrapper = styled.header`
-  width: 100%;
-  height: 100px;
   background-color: #465775;
   color: #fff;
   font-size: 32px;
@@ -11,6 +9,11 @@ export const HeaderWrapper = styled.header`
   justify-content: space-between;
   padding: 24px;
   border-radius: 0 0 16px 16px;
+
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
 
   .logoutIcon {
     font-size: 28px;

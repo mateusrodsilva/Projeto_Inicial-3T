@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const PageWrapper = styled.section`
-  width: 100%;
   background-color: #f5f5f5;
   border-radius: 16px;
   padding: 24px;
+  margin: 24px 24px 24px 12px;
 
   h1 {
     font-size: 28px;
