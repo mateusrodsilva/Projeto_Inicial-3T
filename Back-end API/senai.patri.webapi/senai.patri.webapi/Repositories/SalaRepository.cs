@@ -23,6 +23,9 @@ namespace senai.patri.webapi.Repositories
                 SalaBuscada.IdInstituicao = SalaAtt.IdInstituicao;
                 SalaBuscada.MetragemSala = SalaAtt.MetragemSala;
             }
+
+            ctx.Salas.Update(SalaBuscada);
+            ctx.SaveChanges();
         }
 
         public Sala BuscarPorId(int id)

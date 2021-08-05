@@ -6,9 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="Reposotories\**" />
+    <Compile Remove="ViewModels\**" />
     <Content Remove="Reposotories\**" />
+    <Content Remove="ViewModels\**" />
     <EmbeddedResource Remove="Reposotories\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
     <None Remove="Reposotories\**" />
+    <None Remove="ViewModels\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,11 +26,6 @@
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
 	<PropertyGroup>
