@@ -1,12 +1,22 @@
-import React, { useContext } from 'react';
-import { ThemeContext } from 'styled-components';
+import React, { useState, useEffect } from 'react';
 import { HeaderWrapper } from './styles/HeaderWrapper';
 import { FiPower } from 'react-icons/fi';
 import NextLink from 'next/link';
 import Switch from 'react-switch';
+import nookies from 'nookies';
 
 export function Header({ toggleTheme }) {
-  const { title, colors } = useContext(ThemeContext);
+  const activeTheme = nookies.get().theme;
+  const [check, setCheck] = useState();
+
+  useEffect(() => {
+    if (activeTheme === 'dark') {
+      setCheck(true);
+    }
+    if (activeTheme === 'light') {
+      setCheck(false);
+    }
+  }, [activeTheme, check]);
 
   return (
     <HeaderWrapper>
@@ -16,7 +26,7 @@ export function Header({ toggleTheme }) {
       <div className="headerIcons">
         <Switch
           onChange={toggleTheme}
-          checked={title === 'dark'}
+          checked={check}
           checkedIcon={false}
           uncheckedIcon={false}
           height={10}

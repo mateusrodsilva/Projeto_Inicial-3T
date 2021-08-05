@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const SidebarWrapper = styled.aside`
-  background-color: #f5f5f5;
+  background-color: ${({ theme }) => theme.tertiary};
   font-size: 16px;
   border-radius: 16px;
   display: flex;

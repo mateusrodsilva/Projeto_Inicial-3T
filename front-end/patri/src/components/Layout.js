@@ -1,60 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyle } from '../theme/GlobalStyle';
 import { Header } from './Header';
 import { Main } from './Main';
 import { Sidebar } from './Sidebar';
 import { useRouter } from 'next/router';
-
-import styled from 'styled-components';
-
-const LayoutWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  grid-template-rows: 20vh 70vh 10vh;
-  grid-template-areas: 'header header' 'main aside' 'footer footer';
-
-  header {
-    background-color: blue;
-    grid-area: header;
-  }
-
-  main {
-    background-color: yellow;
-    grid-area: main;
-    padding: 24px 12px 24px 24px;
-
-    div {
-      width: 100%;
-      height: 100%;
-      background-color: white;
-    }
-  }
-
-  aside {
-    width: 100%;
-    background-color: green;
-    grid-area: aside;
-    padding: 24px;
-
-    div {
-      width: 100%;
-      height: 100%;
-      background-color: white;
-    }
-  }
-
-  footer {
-    width: 100%;
-
-    background-color: red;
-    grid-area: footer;
-  }
-`;
+import nookies from 'nookies';
+import theme from '../theme';
 
 export default function Layout({ children, toggleTheme }) {
   const router = useRouter();
+  const [userTheme, setUserTheme] = useState(nookies.get().theme);
+  const activeTheme = theme[userTheme];
+
+  function toggleTheme() {
+    if (userTheme === 'light') {
+      nookies.set(null, 'theme', 'dark', {
+        path: '/',
+        maxAge: 86400 * 7,
+      });
+
+      setUserTheme('dark');
+    }
+
+    if (userTheme === 'dark') {
+      nookies.set(null, 'theme', 'light', {
+        path: '/',
+        maxAge: 86400 * 7,
+      });
+      setUserTheme('light');
+    }
+  }
 
   return (
-    <>
+    <ThemeProvider theme={activeTheme ? activeTheme : theme.light}>
+      <GlobalStyle />
       {router.pathname === '/login' || router.pathname === '/register' ? (
         children
       ) : (
@@ -64,6 +44,6 @@ export default function Layout({ children, toggleTheme }) {
           {children}
         </Main>
       )}
-    </>
+    </ThemeProvider>
   );
 }

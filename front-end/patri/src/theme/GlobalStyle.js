@@ -11,7 +11,7 @@ export const GlobalStyle = createGlobalStyle`
   html, body {
     min-height: 100vh;
     width: 100%;
-    background-color: ${({ theme }) => theme.colors.secondary};
+    background-color: ${({ theme }) => theme.secondary};
   }
 
   #__next {

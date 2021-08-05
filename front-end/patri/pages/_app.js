@@ -1,17 +1,12 @@
 import Head from 'next/head';
+import { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from '../src/theme/GlobalStyle';
-import { light, dark } from '../src/theme';
-import { usePersistedState } from '../src/hooks/usePersistedState';
 import Layout from '../src/components/Layout';
+import theme from '../src/theme';
+import nookies from 'nookies';
 
 export default function App({ Component, pageProps }) {
-  const [theme, setTheme] = usePersistedState('theme', light);
-
-  function toggleTheme() {
-    setTheme(theme.title === 'light' ? dark : light);
-  }
-
   return (
     <>
       <Head>
@@ -42,12 +37,9 @@ export default function App({ Component, pageProps }) {
           rel="stylesheet"
         />
       </Head>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Layout toggleTheme={toggleTheme}>
-          <Component {...pageProps} />
-        </Layout>
-      </ThemeProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </>
   );
 }
