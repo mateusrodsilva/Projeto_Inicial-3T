@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace senai.patri.webapi.Interfaces
 {
-    interface ITipoEquipamento
+    interface ITipoEquipamentoRepository
     {
         /// <summary>
         /// Método que cadastra um novo TipoEquipamento

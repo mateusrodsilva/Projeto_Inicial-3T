@@ -24,26 +24,33 @@ namespace senai.patri.webapi.Repositories
                 InstituicaoBuscada.Cnpj = InstituicaoAtt.Cnpj;
                 InstituicaoBuscada.Endereco = InstituicaoAtt.Endereco;
             }
+
+            ctx.Instituicaos.Update(InstituicaoBuscada);
+            ctx.SaveChanges();
         }
 
         public Instituicao BuscarPorId(int id)
         {
-            throw new NotImplementedException();
+            return ctx.Instituicaos.FirstOrDefault(i => i.IdInstituicao == id);
         }
 
         public void Cadastrar(Instituicao NovaInstituicao)
         {
-            throw new NotImplementedException();
+            ctx.Instituicaos.Add(NovaInstituicao);
+            ctx.SaveChanges();
         }
 
         public void Deletar(int id)
         {
-            throw new NotImplementedException();
+            Instituicao InstituicaoBuscada = ctx.Instituicaos.Find(id);
+
+            ctx.Instituicaos.Remove(InstituicaoBuscada);
+            ctx.SaveChanges();
         }
 
         public List<Instituicao> Listar()
         {
-            throw new NotImplementedException();
+            return ctx.Instituicaos.ToList();
         }
     }
 }

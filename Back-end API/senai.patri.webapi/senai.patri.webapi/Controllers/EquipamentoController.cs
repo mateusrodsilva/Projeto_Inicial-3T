@@ -21,20 +21,20 @@ namespace senai.patri.webapi.Controllers
             _equipamentoRepository = new EquipamentoRepository();
         }
 
-        [HttpGet]
+        [HttpGet("listarequipamentos")]
         public IActionResult Get()
         {
             return Ok(_equipamentoRepository.Listar());
         }
 
-        [HttpGet]
+        [HttpGet("equipamentosporid/{id}")]
         public IActionResult GetById(int id)
         {
             return Ok(_equipamentoRepository.BuscarPorId(id));
 
         }
 
-        [HttpGet]
+        [HttpGet("equipamentosporsala/{id}")]
         public IActionResult GetBySala(int IdSala)
         {
             return Ok(_equipamentoRepository.BuscarEquipamentosSala(IdSala));
