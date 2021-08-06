@@ -2,7 +2,7 @@ export default {
   light: {
     primary: '#465775',
     secondary: '#fff',
-    tertiary: '#f5f5f5',
+    tertiary: '#F0F0F0',
     text: '#333',
     details: '#c4c4c4',
   },

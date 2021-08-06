@@ -22,7 +22,13 @@ export const SidebarWrapper = styled.aside`
     align-items: center;
     gap: 8px;
     font-size: 16px;
-    color: #333;
+    color: ${({ theme }) => theme.details};
     text-decoration: none;
+  }
+
+  .active {
+    a {
+      color: #333;
+    }
   }
 `;

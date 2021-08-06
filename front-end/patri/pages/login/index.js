@@ -15,26 +15,36 @@ export default function Login() {
   }
 
   return (
-    <FormWrapper>
-      <Logo />
-      <h1>Faça seu login!</h1>
-      <form onSubmit={(e) => handleSignIn(e)}>
-        <div className="formInputs">
-          <Input placeholder="E-mail" />
-          <Input placeholder="Senha" />
-        </div>
-        <div className="links">
-          <div>
-            <span>Sua empresa ainda não é cadastra?</span>
-            <NextLink href="/register" passHref>
-              <a> Cadastre-se</a>
-            </NextLink>
+    <div
+      style={{
+        minHeight: '100vh',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: '#F0F0F0',
+      }}
+    >
+      <FormWrapper>
+        <Logo />
+        <h1>Faça seu login!</h1>
+        <form onSubmit={(e) => handleSignIn(e)}>
+          <div className="formInputs">
+            <Input placeholder="E-mail" />
+            <Input placeholder="Senha" />
           </div>
-          <Button colorType="done" type="submit">
-            Entrar
-          </Button>
-        </div>
-      </form>
-    </FormWrapper>
+          <div className="links">
+            <div>
+              <span>Sua empresa ainda não é cadastra?</span>
+              <NextLink href="/register" passHref>
+                <a> Cadastre-se</a>
+              </NextLink>
+            </div>
+            <Button colorType="done" type="submit">
+              Entrar
+            </Button>
+          </div>
+        </form>
+      </FormWrapper>
+    </div>
   );
 }
