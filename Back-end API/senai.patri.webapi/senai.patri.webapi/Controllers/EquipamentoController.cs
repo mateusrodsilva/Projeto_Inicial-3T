@@ -27,14 +27,14 @@ namespace senai.patri.webapi.Controllers
             return Ok(_equipamentoRepository.Listar());
         }
 
-        [HttpGet("equipamentosporid/{id}")]
+        [HttpGet("equipamentos-por-id/{id}")]
         public IActionResult GetById(int id)
         {
             return Ok(_equipamentoRepository.BuscarPorId(id));
 
         }
 
-        [HttpGet("equipamentosporsala/{id}")]
+        [HttpGet("equipamentos-por-sala/{id}")]
         public IActionResult GetBySala(int id)
         {
             return Ok(_equipamentoRepository.BuscarEquipamentosSala(id));
@@ -48,7 +48,7 @@ namespace senai.patri.webapi.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult Put(int id, Equipamento EquipamentoAtt)
         {
             _equipamentoRepository.Atualizar(id, EquipamentoAtt);
@@ -56,7 +56,7 @@ namespace senai.patri.webapi.Controllers
         }
 
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _equipamentoRepository.Deletar(id);

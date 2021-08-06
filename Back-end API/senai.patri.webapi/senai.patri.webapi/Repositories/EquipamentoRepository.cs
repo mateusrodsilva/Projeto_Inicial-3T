@@ -33,7 +33,23 @@ namespace senai.patri.webapi.Repositories
                 .Select( e => new Equipamento
                 {
                     IdEquipamento = e.IdEquipamento,
-                    Descricao = e.Descricao
+                    Descricao = e.Descricao,
+                    Marca = e.Marca,
+                    NumeroSerie = e.NumeroSerie,
+                    NumeroPatrimonio = e.NumeroPatrimonio,
+                    StatusEquipamento = e.StatusEquipamento,
+
+                    IdTipoEquipamentoNavigation = new TipoEquipamento
+                    {
+                        IdTipoEquipamento = e.IdTipoEquipamentoNavigation.IdTipoEquipamento,
+                        NomeTipoEquipamento = e.IdTipoEquipamentoNavigation.NomeTipoEquipamento
+                    },
+
+                    IdSalaNavigation = new Sala
+                    {
+                        IdSala = e.IdSalaNavigation.IdSala,
+                        NomeSala = e.IdSalaNavigation.NomeSala
+                    }
 
                 })
                 .Where(w => w.IdSala == idSala)

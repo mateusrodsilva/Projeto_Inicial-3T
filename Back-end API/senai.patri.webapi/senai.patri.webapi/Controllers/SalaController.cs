@@ -12,7 +12,7 @@ namespace senai.patri.webapi.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public class SalaController:ControllerBase
+    public class SalaController : ControllerBase
     {
         private ISalaRepository _salaRepository { get; set; }
 
@@ -50,7 +50,7 @@ namespace senai.patri.webapi.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult Put(int id, Sala SalaAtt)
         {
             _salaRepository.Atualizar(id, SalaAtt);

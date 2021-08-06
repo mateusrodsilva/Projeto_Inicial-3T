@@ -26,7 +26,7 @@ namespace senai.patri.webapi.Controllers
             return Ok(_tipoEquipamentoRepository.Listar());
         }
 
-        [HttpGet]
+        [HttpGet("tipo-equipamento/{id}")]
         public IActionResult GetById(int id)
         {
             return Ok(_tipoEquipamentoRepository.BuscarPorId(id));
