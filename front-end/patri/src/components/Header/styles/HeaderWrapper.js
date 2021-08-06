@@ -9,6 +9,7 @@ export const HeaderWrapper = styled.header`
   justify-content: space-between;
   padding: 24px;
   border-radius: 0 0 16px 16px;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
 
   a {
     text-decoration: none;

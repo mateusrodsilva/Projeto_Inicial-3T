@@ -10,6 +10,11 @@ export const InputWrapper = styled.div`
   border-radius: 16px;
   background-color: #fff;
   padding: 8px 18px;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
+
+  &:hover {
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.5);
+  }
 
   input {
     width: 100%;

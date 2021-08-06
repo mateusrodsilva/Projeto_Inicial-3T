@@ -8,6 +8,7 @@ export const SidebarWrapper = styled.aside`
   flex-direction: column;
   align-items: center;
   margin: 24px 12px 24px 24px;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
 
   > div {
     display: flex;

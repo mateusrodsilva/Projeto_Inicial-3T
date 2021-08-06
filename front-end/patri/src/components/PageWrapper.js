@@ -5,11 +5,18 @@ export const PageWrapper = styled.section`
   border-radius: 16px;
   padding: 24px;
   margin: 24px 24px 24px 12px;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
 
   h1 {
     font-size: 28px;
     font-weight: 400;
     color: #333;
+  }
+
+  .cards {
+    display: flex;
+    gap: 24px;
+    align-items: center;
   }
 
   .tableInteraction {
