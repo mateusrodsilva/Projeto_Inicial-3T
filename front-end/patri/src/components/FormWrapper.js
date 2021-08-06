@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const FormWrapper = styled.div`
+  min-width: 348px;
   display: flex;
   flex-direction: column;
   background-color: #465775;
@@ -19,6 +20,10 @@ export const FormWrapper = styled.div`
     font-weight: 400;
     color: #fff;
     margin-bottom: 12px;
+
+    &.modalTitle {
+      margin-bottom: 48px;
+    }
   }
 
   .formInputs {
@@ -33,6 +38,10 @@ export const FormWrapper = styled.div`
     justify-content: space-between;
     gap: 12px;
     margin-top: 56px;
+
+    &.modal {
+      justify-content: flex-end;
+    }
 
     > div {
       width: 200px;

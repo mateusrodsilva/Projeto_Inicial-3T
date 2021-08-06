@@ -24,9 +24,9 @@ export function Header({ toggleTheme }) {
         <span>SENAI Informática</span>
       </div>
       <div className="headerIcons">
-        <Switch
+        {/* <Switch
           onChange={toggleTheme}
-          checked={check}
+          checked={check ? true : false}
           checkedIcon={false}
           uncheckedIcon={false}
           height={10}
@@ -34,7 +34,7 @@ export function Header({ toggleTheme }) {
           handleDiameter={20}
           offColor="#f5f5f5"
           onColor="#3B4454"
-        />
+        /> */}
         <NextLink href="/login" passHref>
           <a>
             <FiPower className="logoutIcon" />

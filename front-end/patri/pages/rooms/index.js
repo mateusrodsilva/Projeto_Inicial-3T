@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '../../src/components/common/Button';
 import { Input } from '../../src/components/common/Input';
 import { PageWrapper } from '../../src/components/PageWrapper';
 import { Table } from '../../src/components/Table';
 import { AiOutlineSearch } from 'react-icons/ai';
+import Modal from '../../src/components/common/Modal';
+import { FormWrapper } from '../../src/components/FormWrapper';
 
 const roomsData = [
   {
@@ -23,6 +25,26 @@ const roomsData = [
 const roomsColumns = ['#', 'Andar', 'Nome', 'Metragem'];
 
 export default function Rooms() {
+  const [showModal, setShowModal] = useState(false);
+  const [roomFloor, setRoomFloor] = useState('');
+  const [roomName, setRoomName] = useState('');
+  const [roomFootage, setRoomFootage] = useState('');
+
+  function cleanInputs() {
+    setRoomFloor('');
+    setRoomName('');
+    setRoomFootage('');
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(roomFloor);
+    console.log(roomName);
+    console.log(roomFootage);
+    setShowModal(false);
+    cleanInputs();
+  }
+
   return (
     <PageWrapper>
       <h1>Salas</h1>
@@ -31,7 +53,47 @@ export default function Rooms() {
           icon={<AiOutlineSearch className="searchIcon" />}
           placeholder="Buscar"
         />
-        <Button colorType="done">+ Nova sala</Button>
+        <Button colorType="done" onClick={() => setShowModal(true)}>
+          + Nova sala
+        </Button>
+        <Modal onClose={() => setShowModal(false)} show={showModal}>
+          <FormWrapper>
+            <h1 className="modalTitle">+ Nova sala</h1>
+            <form onSubmit={(e) => handleSubmit(e)}>
+              <div className="formInputs">
+                <Input
+                  placeholder="Andar"
+                  value={roomFloor}
+                  onChange={(e) => setRoomFloor(e.target.value)}
+                />
+                <Input
+                  placeholder="Nome"
+                  value={roomName}
+                  onChange={(e) => setRoomName(e.target.value)}
+                />
+                <Input
+                  placeholder="Metragem"
+                  value={roomFootage}
+                  onChange={(e) => setRoomFootage(e.target.value)}
+                />
+              </div>
+              <div className="links modal">
+                <Button
+                  colorType="cancel"
+                  onClick={() => {
+                    setShowModal(false);
+                    cleanInputs();
+                  }}
+                >
+                  Cancelar
+                </Button>
+                <Button colorType="done" type="submit">
+                  Entrar
+                </Button>
+              </div>
+            </form>
+          </FormWrapper>
+        </Modal>
       </div>
       <Table columns={roomsColumns} data={roomsData} role="1" />
     </PageWrapper>
