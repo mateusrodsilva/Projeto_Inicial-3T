@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using senai.patri.webapi.Domains;
 using senai.patri.webapi.Interfaces;
+using senai.patri.webapi.Repositories;
 using senai.patri.webapi.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -48,6 +50,8 @@ namespace senai.patri.webapi.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, UsuarioBuscado.IdUsuario.ToString()),
 
                     new Claim(ClaimTypes.Role, UsuarioBuscado.Tipo),
+
+                    new Claim("instituicao", UsuarioBuscado.IdInstituicao.ToString())
                 };
 
                 var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("patri-autenticacao"));
