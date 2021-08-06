@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '../../src/components/common/Button';
 import { Input } from '../../src/components/common/Input';
 import { PageWrapper } from '../../src/components/PageWrapper';
@@ -40,12 +40,33 @@ const roomsColumns = [
 
 export default function Equipment() {
   const [showModal, setShowModal] = useState(false);
+  const [equipmentList, setEquipmentList] = useState('');
   const [equipmentDeveloper, setEquipmentDeveloper] = useState('');
   const [equipmentType, setEquipmentType] = useState('');
   const [equipmentSerialNumber, setEquipmentSerialNumber] = useState('');
   const [equipmentDescription, setEquipmentDescription] = useState('');
   const [equipmentPatrimonyNumber, setEquipmentPatrimonyNumber] = useState('');
   const [equipmentStatus, setEquipmentStatus] = useState('');
+
+  async function getEquipmentFromApi() {
+    const res = await fetch(
+      'http://localhost:5000/api/equipamento/listarequipamentos'
+    )
+      .then((res) => res.json())
+      .catch((err) => console.erro(err));
+
+    const equipmentList = res.map((x) => ({
+      id: x.idEquipamento,
+      marca: x.marca,
+      tipo: x.nomeSala,
+      numSerie: x.numeroSerie,
+      descricao: x.descricao,
+      numPatrimonio: x.numeroPatrimonio,
+      status: x.statusEquipamento,
+    }));
+
+    setEquipmentList(equipmentList);
+  }
 
   function cleanInputs() {
     setEquipmentDeveloper('');
@@ -67,6 +88,10 @@ export default function Equipment() {
     setShowModal(false);
     cleanInputs();
   }
+
+  useEffect(() => {
+    getEquipmentFromApi();
+  }, []);
 
   return (
     <PageWrapper>

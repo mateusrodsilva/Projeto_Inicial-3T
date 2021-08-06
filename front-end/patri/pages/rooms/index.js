@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '../../src/components/common/Button';
 import { Input } from '../../src/components/common/Input';
 import { PageWrapper } from '../../src/components/PageWrapper';
@@ -26,9 +26,25 @@ const roomsColumns = ['#', 'Andar', 'Nome', 'Metragem'];
 
 export default function Rooms() {
   const [showModal, setShowModal] = useState(false);
+  const [roomList, setRoomList] = useState([]);
   const [roomFloor, setRoomFloor] = useState('');
   const [roomName, setRoomName] = useState('');
   const [roomFootage, setRoomFootage] = useState('');
+
+  async function getRoomsFromApi() {
+    const res = await fetch('http://localhost:5000/api/Sala/listarsalas')
+      .then((res) => res.json())
+      .catch((err) => console.erro(err));
+
+    const roomList = res.map((x) => ({
+      id: x.idSala,
+      andar: x.andar,
+      nome: x.nomeSala,
+      metragem: x.metragemSala,
+    }));
+
+    setRoomList(roomList);
+  }
 
   function cleanInputs() {
     setRoomFloor('');
@@ -44,6 +60,10 @@ export default function Rooms() {
     setShowModal(false);
     cleanInputs();
   }
+
+  useEffect(() => {
+    getRoomsFromApi();
+  }, []);
 
   return (
     <PageWrapper>
@@ -95,7 +115,7 @@ export default function Rooms() {
           </FormWrapper>
         </Modal>
       </div>
-      <Table columns={roomsColumns} data={roomsData} role="1" />
+      <Table columns={roomsColumns} data={roomList} role="1" />
     </PageWrapper>
   );
 }
