@@ -23,23 +23,23 @@ namespace senai.patri.webapi.Controllers
 
 
 
-        [HttpGet("listarsalas")]
+        [HttpGet]
         public IActionResult Get()
         {
             return Ok(_salaRepository.Listar());
         }
 
-        [HttpGet("salasporid/{id}")]
+        [HttpGet("salas-por-id/{id}")]
         public IActionResult GetById(int id)
         {
             return Ok(_salaRepository.BuscarPorId(id));
 
         }
 
-        [HttpGet("salasporinstituicao/{id}")]
-        public IActionResult GetByInstituicao(int IdInstituicao)
+        [HttpGet("salas-por-instituicao/{id}")]
+        public IActionResult GetByInstituicao(int id)
         {
-            return Ok(_salaRepository.BuscarSalaInstituicao(IdInstituicao));
+            return Ok(_salaRepository.BuscarSalaInstituicao(id));
         }
 
         [HttpPost]

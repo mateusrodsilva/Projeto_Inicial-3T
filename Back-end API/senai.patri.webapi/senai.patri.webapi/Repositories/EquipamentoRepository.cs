@@ -1,4 +1,5 @@
-﻿using senai.patri.webapi.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using senai.patri.webapi.Contexts;
 using senai.patri.webapi.Domains;
 using senai.patri.webapi.Interfaces;
 using System;
@@ -28,7 +29,15 @@ namespace senai.patri.webapi.Repositories
 
         public List<Equipamento> BuscarEquipamentosSala(int idSala)
         {
-            return ctx.Equipamentos.Where(e => e.IdSala == idSala).ToList();
+            return ctx.Equipamentos
+                .Select( e => new Equipamento
+                {
+                    IdEquipamento = e.IdEquipamento,
+                    Descricao = e.Descricao
+
+                })
+                .Where(w => w.IdSala == idSala)
+                .ToList();
         }
 
         public Equipamento BuscarPorId(int id)

@@ -1,4 +1,5 @@
-﻿using senai.patri.webapi.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using senai.patri.webapi.Contexts;
 using senai.patri.webapi.Domains;
 using senai.patri.webapi.Interfaces;
 using System;
@@ -35,7 +36,9 @@ namespace senai.patri.webapi.Repositories
 
         public List<Sala> BuscarSalaInstituicao(int IdInstituicao)
         {
-            return ctx.Salas.Where(w => w.IdInstituicao == IdInstituicao).ToList();
+            return ctx.Salas
+                .Where(w => w.IdInstituicao == IdInstituicao)
+                .ToList();
         }
 
         public void Cadastrar(Sala NovaSala)
