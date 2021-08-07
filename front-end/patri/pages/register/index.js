@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FormWrapper } from '../../src/components/FormWrapper';
 import { Input } from '../../src/components/common/Input';
 import { Button } from '../../src/components/common/Button';
@@ -6,12 +6,38 @@ import { Logo } from '../../src/img/Logo';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 
-export default function Login() {
+export default function Register() {
   const router = useRouter();
 
-  function handleRegister(e) {
+  const [institutionName, setinstitutionName] = useState('');
+  const [institutionSocialReason, setinstitutionSocialReason] = useState('');
+  const [institutionCnpj, setinstitutionCnpj] = useState('');
+  const [institutionAddress, setinstitutionAddress] = useState('');
+  const [institutionEmail, setinstitutionEmail] = useState('');
+  const [institutionPassword, setinstitutionPassword] = useState('');
+
+  async function handleRegister(e) {
     e.preventDefault();
-    router.push('/login');
+
+    const { status } = await fetch('http://localhost:5000/api/instituicoes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        nome: institutionName,
+        razaoSocial: institutionSocialReason,
+        cnpj: institutionCnpj,
+        endereco: institutionAddress,
+        email: institutionEmail,
+        senha: institutionPassword,
+      }),
+    }).catch((err) => console.error(err));
+
+    if (status === 201) {
+      router.push('/login');
+    }
   }
 
   return (
@@ -29,12 +55,36 @@ export default function Login() {
         <h1>Cadastre-se!</h1>
         <form onSubmit={(e) => handleRegister(e)}>
           <div className="formInputs">
-            <Input placeholder="Nome" />
-            <Input placeholder="Razão social" />
-            <Input placeholder="CNPJ" />
-            <Input placeholder="Endereço" />
-            <Input placeholder="E-mail" />
-            <Input placeholder="Senha" />
+            <Input
+              placeholder="Nome"
+              value={institutionName}
+              onChange={(e) => setinstitutionName(e.target.value)}
+            />
+            <Input
+              placeholder="Razão social"
+              value={institutionSocialReason}
+              onChange={(e) => setinstitutionSocialReason(e.target.value)}
+            />
+            <Input
+              placeholder="CNPJ"
+              value={institutionCnpj}
+              onChange={(e) => setinstitutionCnpj(e.target.value)}
+            />
+            <Input
+              placeholder="Endereço"
+              value={institutionAddress}
+              onChange={(e) => setinstitutionAddress(e.target.value)}
+            />
+            <Input
+              placeholder="E-mail"
+              value={institutionEmail}
+              onChange={(e) => setinstitutionEmail(e.target.value)}
+            />
+            <Input
+              placeholder="Senha"
+              value={institutionPassword}
+              onChange={(e) => setinstitutionPassword(e.target.value)}
+            />
           </div>
           <div className="links">
             <div>
