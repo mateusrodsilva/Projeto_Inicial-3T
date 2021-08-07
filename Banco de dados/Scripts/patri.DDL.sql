@@ -1,20 +1,22 @@
-CREATE DATABASE Patri;
+/*CREATE DATABASE Patri;*/
+GO
 
 USE Patri;
+GO
 
 CREATE TABLE Instituicao(
 
 idInstituicao int primary key identity,
 
-Nome VARCHAR(150),
+Nome VARCHAR(150) NOT NULL UNIQUE,
 
-RazaoSocial VARCHAR(150),
+RazaoSocial VARCHAR(150) NOT NULL UNIQUE,
 
-Cnpj VARCHAR(14),
+Cnpj VARCHAR(14) NOT NULL UNIQUE,
 
-Endereco VARCHAR(150)
+Endereco VARCHAR(150) NOT NULL
 ); 
-
+GO
 
 
 CREATE TABLE Usuario(
@@ -23,14 +25,13 @@ IdUsuario int primary key identity,
 
 IdInstituicao int foreign key references instituicao(idInstituicao),
 
-Email VARCHAR(150),
+Email VARCHAR(150) NOT NULL UNIQUE ,
 
-Senha VARCHAR(150),
+Senha VARCHAR(150) NOT NULL,
 
-Tipo VARCHAR(20)
-
+Tipo VARCHAR(20) NOT NULL
 );
-
+GO
 
 
 CREATE TABLE Sala(
@@ -45,15 +46,14 @@ NomeSala VARCHAR(150) not null,
 
 MetragemSala FLOAT NOT NULL
 );
-
+GO
 
 
 CREATE TABLE TipoEquipamento(
 
 IdTipoEquipamento int primary key identity,
-
-NomeTipoEquipamento VARCHAR(150));
-
+NomeTipoEquipamento VARCHAR(150) NOT NULL);
+GO
 
 
 CREATE TABLE Equipamento(
@@ -72,4 +72,5 @@ Descricao VARCHAR(300) not null,
 
 NumeroPatrimonio VARCHAR(100) not null,
 
-StatusEquipamento VARCHAR(6) not null);
+StatusEquipamento BIT DEFAULT (1));
+GO
