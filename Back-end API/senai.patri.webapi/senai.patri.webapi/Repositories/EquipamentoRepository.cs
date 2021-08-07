@@ -95,8 +95,14 @@ namespace senai.patri.webapi.Repositories
                         IdSala = w.IdSalaNavigation.IdSala,
                         NomeSala = w.IdSalaNavigation.NomeSala,
                         MetragemSala = w.IdSalaNavigation.MetragemSala
+                    },
+
+                    IdTipoEquipamentoNavigation = new TipoEquipamento
+                    {
+                        IdTipoEquipamento = w.IdTipoEquipamentoNavigation.IdTipoEquipamento,
+                        NomeTipoEquipamento = w.IdTipoEquipamentoNavigation.NomeTipoEquipamento
                     }
-                    
+
                 })
                 .ToList();
         }
