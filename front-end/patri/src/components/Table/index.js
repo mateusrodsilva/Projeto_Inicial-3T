@@ -137,7 +137,7 @@ export function Table({ columns, data, role, updateTable, handleRemove }) {
               <FiEdit className="tableEditIcon" onClick={() => onEdit(item)} />
               <FiTrash
                 className="tableDeleteIcon"
-                onClick={() => handleRemove()}
+                onClick={() => handleRemove(item.id)}
               />
             </>
           )}

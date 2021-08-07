@@ -6,6 +6,8 @@ import { Table } from '../../src/components/Table';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Modal from '../../src/components/common/Modal';
 import { FormWrapper } from '../../src/components/FormWrapper';
+import nookies from 'nookies';
+import jwt from 'jsonwebtoken';
 
 const roomsData = [
   {

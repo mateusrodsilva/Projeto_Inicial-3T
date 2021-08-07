@@ -1,6 +1,8 @@
 import React from 'react';
 import Card from '../src/components/Card';
 import { PageWrapper } from '../src/components/PageWrapper';
+import nookies from 'nookies';
+import jwt from 'jsonwebtoken';
 
 export default function Home() {
   return (
@@ -18,4 +20,28 @@ export default function Home() {
       </div>
     </PageWrapper>
   );
+}
+
+export async function getServerSideProps(context) {
+  const userToken = await nookies.get(context).token;
+
+  if (!userToken) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanet: false,
+      },
+    };
+  }
+
+  const { role, instituicao } = jwt.decode(userToken);
+
+  console.log(role, instituicao);
+
+  return {
+    props: {
+      role: role,
+      idInstituicao: instituicao,
+    },
+  };
 }

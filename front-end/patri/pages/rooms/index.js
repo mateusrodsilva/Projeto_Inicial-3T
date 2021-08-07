@@ -6,25 +6,12 @@ import { Table } from '../../src/components/Table';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Modal from '../../src/components/common/Modal';
 import { FormWrapper } from '../../src/components/FormWrapper';
-
-const roomsData = [
-  {
-    id: '1',
-    andar: '2º',
-    nome: 'Coworking',
-    metragem: '65m²',
-  },
-  {
-    id: '2',
-    andar: '2º',
-    nome: 'Dev',
-    metragem: '65m²',
-  },
-];
+import nookies from 'nookies';
+import jwt from 'jsonwebtoken';
 
 const roomsColumns = ['#', 'Andar', 'Nome', 'Metragem'];
 
-export default function Rooms() {
+export default function Rooms({ idInstituicao }) {
   const [showModal, setShowModal] = useState(false);
   const [roomList, setRoomList] = useState([]);
 
@@ -33,7 +20,9 @@ export default function Rooms() {
   const [roomFootage, setRoomFootage] = useState('');
 
   async function getRoomsFromApi() {
-    const res = await fetch('http://localhost:5000/api/salas')
+    const res = await fetch(
+      `http://localhost:5000/api/salas/salas-por-instituicao/${idInstituicao}`
+    )
       .then((res) => res.json())
       .catch((err) => console.log(err));
 
@@ -151,4 +140,28 @@ export default function Rooms() {
       />
     </PageWrapper>
   );
+}
+
+export async function getServerSideProps(context) {
+  const userToken = await nookies.get(context).token;
+
+  if (!userToken) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanet: false,
+      },
+    };
+  }
+
+  const { role, instituicao } = jwt.decode(userToken);
+
+  console.log(role, instituicao);
+
+  return {
+    props: {
+      role: role,
+      idInstituicao: instituicao,
+    },
+  };
 }
