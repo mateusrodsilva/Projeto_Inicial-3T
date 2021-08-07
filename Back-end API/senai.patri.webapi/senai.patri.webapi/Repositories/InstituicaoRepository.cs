@@ -1,6 +1,7 @@
 ﻿using senai.patri.webapi.Contexts;
 using senai.patri.webapi.Domains;
 using senai.patri.webapi.Interfaces;
+using senai.patri.webapi.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,9 +35,26 @@ namespace senai.patri.webapi.Repositories
             return ctx.Instituicaos.FirstOrDefault(i => i.IdInstituicao == id);
         }
 
-        public void Cadastrar(Instituicao NovaInstituicao)
+        public void Cadastrar(InstituicaoUsuarioVM NovoInstituicaoUsuario)
         {
+            Instituicao NovaInstituicao = new Instituicao
+            {
+                Nome = NovoInstituicaoUsuario.Nome,
+                RazaoSocial = NovoInstituicaoUsuario.RazaoSocial,
+                Endereco = NovoInstituicaoUsuario.Endereco,
+                Cnpj = NovoInstituicaoUsuario.Cnpj
+            };
             ctx.Instituicaos.Add(NovaInstituicao);
+            ctx.SaveChanges();
+
+            Usuario NovoUsuario = new Usuario
+            {
+                Email = NovoInstituicaoUsuario.Email,
+                Senha = NovoInstituicaoUsuario.Senha,
+                Tipo = "Admin",
+                IdInstituicao = NovaInstituicao.IdInstituicao
+            };
+            ctx.Usuarios.Add(NovoUsuario);
             ctx.SaveChanges();
         }
 

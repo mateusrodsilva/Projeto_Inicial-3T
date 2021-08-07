@@ -1,4 +1,5 @@
 ﻿using senai.patri.webapi.Domains;
+using senai.patri.webapi.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,8 @@ namespace senai.patri.webapi.Interfaces
         /// <summary>
         /// Método que cadastra uma nova Instituição
         /// </summary>
-        /// <param name="NovaInstituicao">Objeto da Instituicao que será Cadastrada</param>
-        public void Cadastrar(Instituicao NovaInstituicao);
+        /// <param name="NovoInstituicaoUsuario">Objeto da Instituicao que será Cadastrada</param>
+        public void Cadastrar(InstituicaoUsuarioVM NovoInstituicaoUsuario);
 
         /// <summary>
         /// Lista todos as Instituições cadastradas 

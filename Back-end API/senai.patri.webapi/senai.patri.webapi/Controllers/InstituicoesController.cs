@@ -2,6 +2,7 @@
 using senai.patri.webapi.Domains;
 using senai.patri.webapi.Interfaces;
 using senai.patri.webapi.Repositories;
+using senai.patri.webapi.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,22 +13,23 @@ namespace senai.patri.webapi.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public class InstituicaoController : ControllerBase
+    public class InstituicoesController : ControllerBase
     {
         private IInstituicaoRepository _instituicaoRepository { get; set; }
+        private IUsuarioRepository _usuarioRepository { get; set; }
 
-        public InstituicaoController()
+        public InstituicoesController()
         {
             _instituicaoRepository = new InstituicaoRepository();
         }
 
-        [HttpGet("listarinstituicoes")]
+        [HttpGet]
         public IActionResult Get()
         {
             return Ok(_instituicaoRepository.Listar());
         }
 
-        [HttpGet("instituicaoporid/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             return Ok(_instituicaoRepository.BuscarPorId(id));
@@ -35,9 +37,9 @@ namespace senai.patri.webapi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(Instituicao NovaInstituicao)
+        public IActionResult Post(InstituicaoUsuarioVM NovoInstituicaoUsuario)
         {
-            _instituicaoRepository.Cadastrar(NovaInstituicao);
+            _instituicaoRepository.Cadastrar(NovoInstituicaoUsuario);
             return StatusCode(201);
         }
 

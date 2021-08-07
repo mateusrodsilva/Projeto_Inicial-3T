@@ -97,6 +97,7 @@ namespace senai.patri.webapi
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "senai.patri.webApi");
+                c.RoutePrefix = string.Empty;
             });
 
             if (env.IsDevelopment())

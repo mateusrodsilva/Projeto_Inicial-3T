@@ -30,7 +30,7 @@ namespace senai.patri.webapi.Repositories
         public List<Equipamento> BuscarEquipamentosSala(int idSala)
         {
             return ctx.Equipamentos
-                .Select( e => new Equipamento
+                .Select(e => new Equipamento
                 {
                     IdEquipamento = e.IdEquipamento,
                     Descricao = e.Descricao,
@@ -43,7 +43,6 @@ namespace senai.patri.webapi.Repositories
 
                     IdTipoEquipamentoNavigation = new TipoEquipamento
                     {
-                        IdTipoEquipamento = e.IdTipoEquipamentoNavigation.IdTipoEquipamento,
                         NomeTipoEquipamento = e.IdTipoEquipamentoNavigation.NomeTipoEquipamento
                     },
 
@@ -89,19 +88,25 @@ namespace senai.patri.webapi.Repositories
                     NumeroSerie = w.NumeroSerie,
                     NumeroPatrimonio = w.NumeroPatrimonio,
                     StatusEquipamento = w.StatusEquipamento,
+                    Descricao = w.Descricao,
 
+                    IdTipoEquipamentoNavigation = new TipoEquipamento
+                    {
+                        //IdTipoEquipamento = w.IdTipoEquipamentoNavigation.IdTipoEquipamento,
+                        NomeTipoEquipamento = w.IdTipoEquipamentoNavigation.NomeTipoEquipamento
+                    },
+                    
                     IdSalaNavigation = new Sala
                     {
                         IdSala = w.IdSalaNavigation.IdSala,
                         NomeSala = w.IdSalaNavigation.NomeSala,
-                        MetragemSala = w.IdSalaNavigation.MetragemSala
+                        MetragemSala = w.IdSalaNavigation.MetragemSala,
+                        Andar = w.IdSalaNavigation.Andar,
+                        IdInstituicao = w.IdSalaNavigation.IdInstituicao
                     },
 
-                    IdTipoEquipamentoNavigation = new TipoEquipamento
-                    {
-                        IdTipoEquipamento = w.IdTipoEquipamentoNavigation.IdTipoEquipamento,
-                        NomeTipoEquipamento = w.IdTipoEquipamentoNavigation.NomeTipoEquipamento
-                    }
+                    
+
 
                 })
                 .ToList();

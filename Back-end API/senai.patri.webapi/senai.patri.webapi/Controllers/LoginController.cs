@@ -51,7 +51,9 @@ namespace senai.patri.webapi.Controllers
 
                     new Claim(ClaimTypes.Role, UsuarioBuscado.Tipo),
 
-                    new Claim("instituicao", UsuarioBuscado.IdInstituicao.ToString())
+                    new Claim("instituicao", UsuarioBuscado.IdInstituicao.ToString()),
+
+                    new Claim("role",UsuarioBuscado.Tipo)
                 };
 
                 var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("patri-autenticacao"));

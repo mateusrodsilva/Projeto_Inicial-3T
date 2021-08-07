@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using senai.patri.webapi.Domains;
 using senai.patri.webapi.Interfaces;
 using senai.patri.webapi.Repositories;
@@ -12,14 +13,15 @@ namespace senai.patri.webapi.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public class EquipamentoController : ControllerBase
+    public class EquipamentosController : ControllerBase
     {
         private IEquipamentoRepository _equipamentoRepository { get; set; }
 
-        public EquipamentoController()
+        public EquipamentosController()
         {
             _equipamentoRepository = new EquipamentoRepository();
         }
+
 
         [HttpGet]
         public IActionResult Get()
@@ -27,19 +29,20 @@ namespace senai.patri.webapi.Controllers
             return Ok(_equipamentoRepository.Listar());
         }
 
-        [HttpGet("equipamentos-por-id/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             return Ok(_equipamentoRepository.BuscarPorId(id));
 
         }
 
-        [HttpGet("equipamentos-por-sala/{id}")]
+        [HttpGet("por-sala/{id}")]
         public IActionResult GetBySala(int id)
         {
             return Ok(_equipamentoRepository.BuscarEquipamentosSala(id));
         }
 
+        [Authorize(Roles = "ADM")]
         [HttpPost]
         public IActionResult Post(Equipamento NovoEquipamento)
         {

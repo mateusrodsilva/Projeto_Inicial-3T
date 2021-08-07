@@ -11,11 +11,11 @@ namespace senai.patri.webapi.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public class TipoEquipamentoController : ControllerBase
+    public class TiposEquipamentoController : ControllerBase
     {
         private TipoEquipamentoRepository _tipoEquipamentoRepository { get; set; }
 
-        public TipoEquipamentoController()
+        public TiposEquipamentoController()
         {
             _tipoEquipamentoRepository = new TipoEquipamentoRepository();
         }
