@@ -38,6 +38,8 @@ namespace senai.patri.webapi.Repositories
                     NumeroSerie = e.NumeroSerie,
                     NumeroPatrimonio = e.NumeroPatrimonio,
                     StatusEquipamento = e.StatusEquipamento,
+                    IdSala = e.IdSala,
+                    IdTipoEquipamento = e.IdTipoEquipamento,
 
                     IdTipoEquipamentoNavigation = new TipoEquipamento
                     {
@@ -77,7 +79,26 @@ namespace senai.patri.webapi.Repositories
 
         public List<Equipamento> Listar()
         {
-            return ctx.Equipamentos.ToList();
+            return ctx.Equipamentos
+                .Select( w => new Equipamento
+                {
+                    IdTipoEquipamento = w.IdTipoEquipamento,
+                    IdEquipamento = w.IdEquipamento,
+                    IdSala = w.IdSala,
+                    Marca = w.Marca,
+                    NumeroSerie = w.NumeroSerie,
+                    NumeroPatrimonio = w.NumeroPatrimonio,
+                    StatusEquipamento = w.StatusEquipamento,
+
+                    IdSalaNavigation = new Sala
+                    {
+                        IdSala = w.IdSalaNavigation.IdSala,
+                        NomeSala = w.IdSalaNavigation.NomeSala,
+                        MetragemSala = w.IdSalaNavigation.MetragemSala
+                    }
+                    
+                })
+                .ToList();
         }
     }
 }
