@@ -38,35 +38,15 @@ const roomsColumns = [
   'Status',
 ];
 
-export default function Equipment() {
+export default function Equipment({ equipmentList }) {
   const [showModal, setShowModal] = useState(false);
-  const [equipmentList, setEquipmentList] = useState('');
+  // const [equipmentList, setEquipmentList] = useState('');
   const [equipmentDeveloper, setEquipmentDeveloper] = useState('');
   const [equipmentType, setEquipmentType] = useState('');
   const [equipmentSerialNumber, setEquipmentSerialNumber] = useState('');
   const [equipmentDescription, setEquipmentDescription] = useState('');
   const [equipmentPatrimonyNumber, setEquipmentPatrimonyNumber] = useState('');
   const [equipmentStatus, setEquipmentStatus] = useState('');
-
-  async function getEquipmentFromApi() {
-    const res = await fetch(
-      'http://localhost:5000/api/equipamento/listarequipamentos'
-    )
-      .then((res) => res.json())
-      .catch((err) => console.erro(err));
-
-    const equipmentList = res.map((x) => ({
-      id: x.idEquipamento,
-      marca: x.marca,
-      tipo: x.nomeSala,
-      numSerie: x.numeroSerie,
-      descricao: x.descricao,
-      numPatrimonio: x.numeroPatrimonio,
-      status: x.statusEquipamento,
-    }));
-
-    setEquipmentList(equipmentList);
-  }
 
   function cleanInputs() {
     setEquipmentDeveloper('');
@@ -88,10 +68,6 @@ export default function Equipment() {
     setShowModal(false);
     cleanInputs();
   }
-
-  useEffect(() => {
-    getEquipmentFromApi();
-  }, []);
 
   return (
     <PageWrapper>
@@ -161,7 +137,31 @@ export default function Equipment() {
           </FormWrapper>
         </Modal>
       </div>
-      <Table columns={roomsColumns} data={roomsData} role="1" />
+      <Table columns={roomsColumns} data={equipmentList} role="1" />
     </PageWrapper>
   );
+}
+
+export async function getServerSideProps(context) {
+  const res = await fetch('http://localhost:5000/api/equipamentos')
+    .then((res) => res.json())
+    .catch((err) => console.error(err));
+
+  const equipment = res.map((x) => ({
+    id: x.idEquipamento,
+    marca: x.marca,
+    tipo: x.idTipoEquipamentoNavigation.nomeTipoEquipamento,
+    numSerie: x.numeroSerie,
+    descricao: x.descricao,
+    numPatrimonio: x.numeroPatrimonio,
+    status: x.statusEquipamento,
+  }));
+
+  console.log(equipment);
+
+  return {
+    props: {
+      equipmentList: equipment,
+    },
+  };
 }

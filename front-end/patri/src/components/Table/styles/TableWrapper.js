@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const TableWrapper = styled.div`
   max-width: 100%;
+  max-height: 86%;
   background-color: #fff;
   border-radius: 16px;
   color: #333;
@@ -14,6 +15,15 @@ export const TableWrapper = styled.div`
     width: 100%;
     text-align: left;
     border-spacing: 0;
+
+    input {
+      border: none;
+      outline: none;
+      margin: 0;
+      padding: 0;
+      font-size: 16px;
+      border-bottom: 1px solid ${({ theme }) => theme.primary};
+    }
   }
 
   thead tr th {

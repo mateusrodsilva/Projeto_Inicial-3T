@@ -10,8 +10,6 @@ export function Sidebar() {
   const router = useRouter();
   const activePage = router.pathname;
 
-  console.log(router.pathname);
-
   return (
     <SidebarWrapper>
       <div>

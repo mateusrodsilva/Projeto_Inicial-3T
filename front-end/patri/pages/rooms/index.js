@@ -27,43 +27,69 @@ const roomsColumns = ['#', 'Andar', 'Nome', 'Metragem'];
 export default function Rooms() {
   const [showModal, setShowModal] = useState(false);
   const [roomList, setRoomList] = useState([]);
+
   const [roomFloor, setRoomFloor] = useState('');
   const [roomName, setRoomName] = useState('');
   const [roomFootage, setRoomFootage] = useState('');
 
   async function getRoomsFromApi() {
-    const res = await fetch('http://localhost:5000/api/Sala/listarsalas')
+    const res = await fetch('http://localhost:5000/api/salas')
       .then((res) => res.json())
-      .catch((err) => console.erro(err));
+      .catch((err) => console.log(err));
 
     const roomList = res.map((x) => ({
       id: x.idSala,
-      andar: x.andar,
-      nome: x.nomeSala,
-      metragem: x.metragemSala,
+      floor: x.andar,
+      name: x.nomeSala,
+      footage: x.metragemSala,
     }));
 
     setRoomList(roomList);
   }
+
+  async function handleCreateRoom(e) {
+    e.preventDefault();
+
+    const { status } = await fetch('http://localhost:5000/api/salas', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        idInstituicao: 1,
+        andar: roomFloor,
+        nomeSala: roomName,
+        metragemSala: roomFootage,
+      }),
+    }).catch((err) => console.error(err));
+
+    if (status === 201) {
+      getRoomsFromApi();
+      setShowModal(false);
+      cleanInputs();
+    }
+  }
+
+  async function handleRemoveRoom(id) {
+    const { status } = await fetch(`http://localhost:5000/api/salas/${id}`, {
+      method: 'DELETE',
+    }).catch((err) => console.error(err));
+
+    if (status === 204) {
+      getRoomsFromApi();
+    }
+  }
+
+  useEffect(() => {
+    getRoomsFromApi();
+  }, []);
 
   function cleanInputs() {
     setRoomFloor('');
     setRoomName('');
     setRoomFootage('');
   }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log(roomFloor);
-    console.log(roomName);
-    console.log(roomFootage);
-    setShowModal(false);
-    cleanInputs();
-  }
-
-  useEffect(() => {
-    getRoomsFromApi();
-  }, []);
 
   return (
     <PageWrapper>
@@ -79,7 +105,7 @@ export default function Rooms() {
         <Modal onClose={() => setShowModal(false)} show={showModal}>
           <FormWrapper>
             <h1 className="modalTitle">+ Nova sala</h1>
-            <form onSubmit={(e) => handleSubmit(e)}>
+            <form onSubmit={(e) => handleCreateRoom(e)}>
               <div className="formInputs">
                 <Input
                   placeholder="Andar"
@@ -115,7 +141,14 @@ export default function Rooms() {
           </FormWrapper>
         </Modal>
       </div>
-      <Table columns={roomsColumns} data={roomList} role="1" />
+      <Table
+        columns={roomsColumns}
+        data={roomList}
+        role="1"
+        idInstituicao={roomList.idInstituicao}
+        handleRemove={handleRemoveRoom}
+        updateTable={getRoomsFromApi}
+      />
     </PageWrapper>
   );
 }
