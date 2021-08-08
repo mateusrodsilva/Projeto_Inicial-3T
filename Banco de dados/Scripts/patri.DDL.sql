@@ -1,4 +1,4 @@
-/*CREATE DATABASE Patri;*/
+CREATE DATABASE Patri;
 GO
 
 USE Patri;
@@ -23,7 +23,7 @@ CREATE TABLE Usuario(
 
 IdUsuario int primary key identity,
 
-IdInstituicao int foreign key references instituicao(idInstituicao),
+IdInstituicao int foreign key references Instituicao(IdInstituicao) NOT NULL,
 
 Email VARCHAR(150) NOT NULL UNIQUE ,
 
@@ -63,6 +63,8 @@ IdEquipamento int primary key identity,
 IdTipoEquipamento int foreign key references TipoEquipamento(IdTipoEquipamento),
 
 IdSala int foreign key references Sala(IdSala),
+
+IdInstituicao int foreign key references Instituicao(IdInstituicao),
 
 Marca VARCHAR(100) not null,
 
