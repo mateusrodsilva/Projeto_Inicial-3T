@@ -10,6 +10,7 @@ namespace senai.patri.webapi.Domains
     {
         public Instituicao()
         {
+            Equipamentos = new HashSet<Equipamento>();
             Salas = new HashSet<Sala>();
             Usuarios = new HashSet<Usuario>();
         }
@@ -24,6 +25,7 @@ namespace senai.patri.webapi.Domains
         [Required]
         public string Endereco { get; set; }
 
+        public virtual ICollection<Equipamento> Equipamentos { get; set; }
         public virtual ICollection<Sala> Salas { get; set; }
         public virtual ICollection<Usuario> Usuarios { get; set; }
     }

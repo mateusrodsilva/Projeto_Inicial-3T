@@ -40,7 +40,7 @@ namespace senai.patri.webapi.Contexts
             modelBuilder.Entity<Equipamento>(entity =>
             {
                 entity.HasKey(e => e.IdEquipamento)
-                    .HasName("PK__Equipame__E309D87FE76BED69");
+                    .HasName("PK__Equipame__E309D87F428CB2DB");
 
                 entity.ToTable("Equipamento");
 
@@ -64,42 +64,59 @@ namespace senai.patri.webapi.Contexts
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.Property(e => e.StatusEquipamento)
-                    .IsRequired()
-                    .HasMaxLength(6)
-                    .IsUnicode(false);
+                entity.Property(e => e.StatusEquipamento).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.IdInstituicaoNavigation)
+                    .WithMany(p => p.Equipamentos)
+                    .HasForeignKey(d => d.IdInstituicao)
+                    .HasConstraintName("FK__Equipamen__IdIns__33D4B598");
 
                 entity.HasOne(d => d.IdSalaNavigation)
                     .WithMany(p => p.Equipamentos)
                     .HasForeignKey(d => d.IdSala)
-                    .HasConstraintName("FK__Equipamen__IdSal__412EB0B6");
+                    .HasConstraintName("FK__Equipamen__IdSal__32E0915F");
 
                 entity.HasOne(d => d.IdTipoEquipamentoNavigation)
                     .WithMany(p => p.Equipamentos)
                     .HasForeignKey(d => d.IdTipoEquipamento)
-                    .HasConstraintName("FK__Equipamen__IdTip__403A8C7D");
+                    .HasConstraintName("FK__Equipamen__IdTip__31EC6D26");
             });
 
             modelBuilder.Entity<Instituicao>(entity =>
             {
                 entity.HasKey(e => e.IdInstituicao)
-                    .HasName("PK__Institui__B771C0D8215F7D6B");
+                    .HasName("PK__Institui__8EA7AB0032CFBA61");
 
                 entity.ToTable("Instituicao");
 
+                entity.HasIndex(e => e.RazaoSocial, "UQ__Institui__448779F06D3D6F91")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Nome, "UQ__Institui__7D8FE3B2B94BD1D1")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Cnpj, "UQ__Institui__A299CC922C70628D")
+                    .IsUnique();
+
+                entity.Property(e => e.IdInstituicao).HasColumnName("idInstituicao");
+
                 entity.Property(e => e.Cnpj)
+                    .IsRequired()
                     .HasMaxLength(14)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Endereco)
+                    .IsRequired()
                     .HasMaxLength(150)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Nome)
+                    .IsRequired()
                     .HasMaxLength(150)
                     .IsUnicode(false);
 
                 entity.Property(e => e.RazaoSocial)
+                    .IsRequired()
                     .HasMaxLength(150)
                     .IsUnicode(false);
             });
@@ -107,7 +124,7 @@ namespace senai.patri.webapi.Contexts
             modelBuilder.Entity<Sala>(entity =>
             {
                 entity.HasKey(e => e.IdSala)
-                    .HasName("PK__Sala__A04F9B3BC68B93F4");
+                    .HasName("PK__Sala__A04F9B3B43EF0BD1");
 
                 entity.ToTable("Sala");
 
@@ -124,17 +141,18 @@ namespace senai.patri.webapi.Contexts
                 entity.HasOne(d => d.IdInstituicaoNavigation)
                     .WithMany(p => p.Salas)
                     .HasForeignKey(d => d.IdInstituicao)
-                    .HasConstraintName("FK__Sala__IdInstitui__3B75D760");
+                    .HasConstraintName("FK__Sala__IdInstitui__2D27B809");
             });
 
             modelBuilder.Entity<TipoEquipamento>(entity =>
             {
                 entity.HasKey(e => e.IdTipoEquipamento)
-                    .HasName("PK__TipoEqui__0191D19139AA4D2F");
+                    .HasName("PK__TipoEqui__0191D191AFEF7C68");
 
                 entity.ToTable("TipoEquipamento");
 
                 entity.Property(e => e.NomeTipoEquipamento)
+                    .IsRequired()
                     .HasMaxLength(150)
                     .IsUnicode(false);
             });
@@ -142,26 +160,33 @@ namespace senai.patri.webapi.Contexts
             modelBuilder.Entity<Usuario>(entity =>
             {
                 entity.HasKey(e => e.IdUsuario)
-                    .HasName("PK__Usuario__5B65BF9761EEDA62");
+                    .HasName("PK__Usuario__5B65BF976A1F85CB");
 
                 entity.ToTable("Usuario");
 
+                entity.HasIndex(e => e.Email, "UQ__Usuario__A9D10534D6D3B00A")
+                    .IsUnique();
+
                 entity.Property(e => e.Email)
+                    .IsRequired()
                     .HasMaxLength(150)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Senha)
+                    .IsRequired()
                     .HasMaxLength(150)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Tipo)
+                    .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.IdInstituicaoNavigation)
                     .WithMany(p => p.Usuarios)
                     .HasForeignKey(d => d.IdInstituicao)
-                    .HasConstraintName("FK__Usuario__IdInsti__38996AB5");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Usuario__IdInsti__2A4B4B5E");
             });
 
             OnModelCreatingPartial(modelBuilder);

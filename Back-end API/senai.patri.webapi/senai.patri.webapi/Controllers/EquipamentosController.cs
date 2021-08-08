@@ -42,7 +42,7 @@ namespace senai.patri.webapi.Controllers
             return Ok(_equipamentoRepository.BuscarEquipamentosSala(id));
         }
 
-        [Authorize(Roles = "ADM")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Post(Equipamento NovoEquipamento)
         {
@@ -50,7 +50,7 @@ namespace senai.patri.webapi.Controllers
             return StatusCode(201);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public IActionResult Put(int id, Equipamento EquipamentoAtt)
         {
@@ -58,7 +58,7 @@ namespace senai.patri.webapi.Controllers
             return StatusCode(204);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

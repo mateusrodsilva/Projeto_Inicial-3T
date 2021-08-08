@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using senai.patri.webapi.Domains;
 using senai.patri.webapi.Interfaces;
 using senai.patri.webapi.Repositories;
@@ -36,23 +37,23 @@ namespace senai.patri.webapi.Controllers
 
         }
 
-        [HttpPost]
+        [HttpPost("{id}")]
         public IActionResult Post(InstituicaoUsuarioVM NovoInstituicaoUsuario)
         {
             _instituicaoRepository.Cadastrar(NovoInstituicaoUsuario);
             return StatusCode(201);
         }
 
-
-        [HttpPut]
+        [Authorize(Roles = "Admin")]
+        [HttpPut("{id}")]
         public IActionResult Put(int id, Instituicao InstituicaoAtt)
         {
             _instituicaoRepository.Atualizar(id, InstituicaoAtt);
             return StatusCode(204);
         }
 
-
-        [HttpDelete]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _instituicaoRepository.Deletar(id);

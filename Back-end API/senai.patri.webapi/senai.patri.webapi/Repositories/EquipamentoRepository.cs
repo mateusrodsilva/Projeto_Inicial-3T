@@ -41,6 +41,14 @@ namespace senai.patri.webapi.Repositories
                     IdSala = e.IdSala,
                     IdTipoEquipamento = e.IdTipoEquipamento,
 
+                    IdInstituicaoNavigation = new Instituicao
+                    {
+                        Nome = w.IdInstituicaoNavigation.Nome,
+                        Cnpj = w.IdInstituicaoNavigation.Cnpj,
+                        RazaoSocial = w.IdInstituicaoNavigation.RazaoSocial,
+                        IdInstituicao = w.IdInstituicaoNavigation.IdInstituicao
+                    },
+
                     IdTipoEquipamentoNavigation = new TipoEquipamento
                     {
                         NomeTipoEquipamento = e.IdTipoEquipamentoNavigation.NomeTipoEquipamento
@@ -89,10 +97,18 @@ namespace senai.patri.webapi.Repositories
                     NumeroPatrimonio = w.NumeroPatrimonio,
                     StatusEquipamento = w.StatusEquipamento,
                     Descricao = w.Descricao,
+                    IdInstituicao = w.IdInstituicao,
+
+                    IdInstituicaoNavigation = new Instituicao
+                    {
+                        Nome = w.IdInstituicaoNavigation.Nome,
+                        Cnpj = w.IdInstituicaoNavigation.Cnpj,
+                        RazaoSocial = w.IdInstituicaoNavigation.RazaoSocial,
+                        IdInstituicao = w.IdInstituicaoNavigation.IdInstituicao
+                    },
 
                     IdTipoEquipamentoNavigation = new TipoEquipamento
                     {
-                        //IdTipoEquipamento = w.IdTipoEquipamentoNavigation.IdTipoEquipamento,
                         NomeTipoEquipamento = w.IdTipoEquipamentoNavigation.NomeTipoEquipamento
                     },
                     

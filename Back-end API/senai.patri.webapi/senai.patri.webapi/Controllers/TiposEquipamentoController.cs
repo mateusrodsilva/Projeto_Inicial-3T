@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using senai.patri.webapi.Domains;
 using senai.patri.webapi.Repositories;
 using System;
@@ -33,7 +34,7 @@ namespace senai.patri.webapi.Controllers
 
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Post(TipoEquipamento NovoTipoEquipamento)
         {
@@ -41,7 +42,7 @@ namespace senai.patri.webapi.Controllers
             return StatusCode(201);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public IActionResult Put(int id, TipoEquipamento TipoEquipamentoAtt)
         {
@@ -49,7 +50,7 @@ namespace senai.patri.webapi.Controllers
             return StatusCode(204);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public IActionResult Delete(int id)
         {

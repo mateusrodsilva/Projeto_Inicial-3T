@@ -16,8 +16,11 @@ namespace senai.patri.webapi.Domains
         public int IdSala { get; set; }
         [Required]
         public int? IdInstituicao { get; set; }
+        [Required]
         public string Andar { get; set; }
+        [Required]
         public string NomeSala { get; set; }
+        [Required]
         public double MetragemSala { get; set; }
 
         public virtual Instituicao IdInstituicaoNavigation { get; set; }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using senai.patri.webapi.Domains;
 using senai.patri.webapi.Interfaces;
 using senai.patri.webapi.Repositories;
@@ -29,19 +30,20 @@ namespace senai.patri.webapi.Controllers
             return Ok(_salaRepository.Listar());
         }
 
-        [HttpGet("salas-por-id/{id}")]
+        [HttpGet("por-id/{id}")]
         public IActionResult GetById(int id)
         {
             return Ok(_salaRepository.BuscarPorId(id));
 
         }
 
-        [HttpGet("salas-por-instituicao/{id}")]
+        [HttpGet("por-instituicao/{id}")]
         public IActionResult GetByInstituicao(int id)
         {
             return Ok(_salaRepository.BuscarSalaInstituicao(id));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Post(Sala NovaSala)
         {
@@ -49,7 +51,7 @@ namespace senai.patri.webapi.Controllers
             return StatusCode(201);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public IActionResult Put(int id, Sala SalaAtt)
         {
@@ -57,7 +59,7 @@ namespace senai.patri.webapi.Controllers
             return StatusCode(204);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
