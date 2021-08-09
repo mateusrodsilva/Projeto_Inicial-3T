@@ -4,10 +4,15 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { TableWrapper } from './styles/TableWrapper';
 import { useRouter } from 'next/router';
 
-export function Table({ columns, data, role, updateTable, handleRemove }) {
+export function Table({
+  columns,
+  data,
+  userToken,
+  updateTable,
+  handleRemove,
+  idInstituicao,
+}) {
   const router = useRouter();
-
-  // console.log('data', data);
 
   const [inEditMode, setInEditMode] = useState({
     status: false,
@@ -18,6 +23,14 @@ export function Table({ columns, data, role, updateTable, handleRemove }) {
   const [name, setName] = useState('');
   const [footage, setFootage] = useState('');
 
+  const [equipmentRoom, setEquipmentRoom] = useState('');
+  const [equipmentDeveloper, setEquipmentDeveloper] = useState('');
+  const [equipmentType, setEquipmentType] = useState('');
+  const [equipmentSerialNumber, setEquipmentSerialNumber] = useState('');
+  const [equipmentDescription, setEquipmentDescription] = useState('');
+  const [equipmentPatrimonyNumber, setEquipmentPatrimonyNumber] = useState('');
+  const [equipmentStatus, setEquipmentStatus] = useState('');
+
   function onEdit(rowItem) {
     setInEditMode({
       status: true,
@@ -27,6 +40,14 @@ export function Table({ columns, data, role, updateTable, handleRemove }) {
     setFloor(rowItem.floor);
     setName(rowItem.name);
     setFootage(rowItem.footage);
+
+    setEquipmentRoom(rowItem.roomName);
+    setEquipmentDeveloper(rowItem.developer);
+    setEquipmentType(rowItem.type);
+    setEquipmentSerialNumber(rowItem.serialNumber);
+    setEquipmentDescription(rowItem.description);
+    setEquipmentPatrimonyNumber(rowItem.patrimonyNumber);
+    setEquipmentStatus(rowItem.status === 'Ativo' ? true : false);
   }
 
   async function onSave({ id, newInfo }) {
@@ -36,9 +57,32 @@ export function Table({ columns, data, role, updateTable, handleRemove }) {
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
+          Authorization: 'Bearer ' + userToken,
         },
         body: JSON.stringify(newInfo),
       }).catch((err) => console.error(err));
+
+      if (status === 204) {
+        updateTable();
+        onCancel();
+      }
+    }
+
+    if (router.pathname === '/equipment') {
+      console.log(newInfo);
+
+      const { status } = await fetch(
+        `http://localhost:5000/api/equipamentos/${id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + userToken,
+          },
+          body: JSON.stringify(newInfo),
+        }
+      ).catch((err) => console.error(err));
 
       if (status === 204) {
         updateTable();
@@ -85,12 +129,20 @@ export function Table({ columns, data, role, updateTable, handleRemove }) {
                     row.key === 'Andar' && setFloor(e.target.value);
                     row.key === 'Nome' && setName(e.target.value);
                     row.key === 'Metragem' && setFootage(e.target.value);
-                    // row.key === 'Marca' && setFloor(e.target.value);
-                    // row.key === 'Tipo' && setName(e.target.value);
-                    // row.key === 'Nº de série' && setFootage(e.target.value);
-                    // row.key === 'Descrição' && setFloor(e.target.value);
-                    // row.key === 'Nº de patrimônio' && setName(e.target.value);
-                    // row.key === 'Status' && setStatus(e.target.value);
+                    row.key === 'Sala' && setEquipmentRoom(e.target.value);
+                    row.key === 'Marca' &&
+                      setEquipmentDeveloper(e.target.value);
+                    row.key === 'Tipo' && setEquipmentType(e.target.value);
+                    row.key === 'Nº de série' &&
+                      setEquipmentSerialNumber(e.target.value);
+                    row.key === 'Descrição' &&
+                      setEquipmentDescription(e.target.value);
+                    row.key === 'Nº de patrimônio' &&
+                      setEquipmentPatrimonyNumber(e.target.value);
+                    row.key === 'Status' &&
+                      setEquipmentStatus(
+                        e.target.value === 'Ativo' ? true : false
+                      );
                   }}
                 />
               ) : (
@@ -109,7 +161,7 @@ export function Table({ columns, data, role, updateTable, handleRemove }) {
                     onSave({
                       id: item.id,
                       newInfo: {
-                        idInstituicao: 1,
+                        idInstituicao: idInstituicao,
                         andar: floor,
                         nomeSala: name,
                         metragemSala: footage,
@@ -121,7 +173,21 @@ export function Table({ columns, data, role, updateTable, handleRemove }) {
                     onSave({
                       id: item.id,
                       newInfo: {
-                        idInstituicao: 1,
+                        idInstituicao: idInstituicao,
+                        // idSala: 1,
+                        // marca: 'teste',
+                        // IdTipoEquipamento: 1,
+                        // numeroSerie: '123',
+                        // descricao: 'descricao',
+                        // numeroPatrimonio: '321',
+                        // statusEquipamento: true,
+                        idSala: equipmentRoom,
+                        marca: equipmentDeveloper,
+                        IdTipoEquipamento: equipmentType,
+                        numeroSerie: equipmentSerialNumber,
+                        descricao: equipmentDescription,
+                        numeroPatrimonio: equipmentPatrimonyNumber,
+                        statusEquipamento: equipmentStatus,
                       },
                     });
                   }
@@ -156,7 +222,7 @@ export function Table({ columns, data, role, updateTable, handleRemove }) {
             {columns.slice(1).map((column, index) => (
               <th key={index}>{column}</th>
             ))}
-            {(role === '1' || role === '3') && <th>Ações</th>}
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>{mappedData}</tbody>

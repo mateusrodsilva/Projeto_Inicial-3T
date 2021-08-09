@@ -11,9 +11,12 @@ import jwt from 'jsonwebtoken';
 
 const roomsColumns = ['#', 'Andar', 'Nome', 'Metragem'];
 
-export default function Rooms({ idInstituicao }) {
+export default function Rooms({ idInstituicao, token }) {
   const [showModal, setShowModal] = useState(false);
   const [roomList, setRoomList] = useState([]);
+  const [equipment, setEquipment] = useState([]);
+
+  console.log(idInstituicao);
 
   const [roomFloor, setRoomFloor] = useState('');
   const [roomName, setRoomName] = useState('');
@@ -21,7 +24,7 @@ export default function Rooms({ idInstituicao }) {
 
   async function getRoomsFromApi() {
     const res = await fetch(
-      `http://localhost:5000/api/salas/salas-por-instituicao/${idInstituicao}`
+      `http://localhost:5000/api/salas/por-instituicao/${idInstituicao}`
     )
       .then((res) => res.json())
       .catch((err) => console.log(err));
@@ -44,9 +47,10 @@ export default function Rooms({ idInstituicao }) {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        Authorization: 'Bearer ' + token,
       },
       body: JSON.stringify({
-        idInstituicao: 1,
+        idInstituicao: idInstituicao,
         andar: roomFloor,
         nomeSala: roomName,
         metragemSala: roomFootage,
@@ -70,9 +74,28 @@ export default function Rooms({ idInstituicao }) {
     }
   }
 
+  // async function handleUpdateRoom({ id, newInfo }) {
+  //   console.log(id, newInfo);
+
+  //   const { status } = await fetch(`http://localhost:5000/api/salas/${id}`, {
+  //     method: 'PUT',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Accept: 'application/json',
+  //     },
+  //     body: JSON.stringify(newInfo),
+  //   }).catch((err) => console.error(err));
+
+  //   if (status === 204) {
+  //     getRoomsFromApi();
+  //   }
+  // }
+
   useEffect(() => {
     getRoomsFromApi();
   }, []);
+
+  console.log(equipment);
 
   function cleanInputs() {
     setRoomFloor('');
@@ -133,8 +156,8 @@ export default function Rooms({ idInstituicao }) {
       <Table
         columns={roomsColumns}
         data={roomList}
-        role="1"
-        idInstituicao={roomList.idInstituicao}
+        userToken={token}
+        idInstituicao={idInstituicao}
         handleRemove={handleRemoveRoom}
         updateTable={getRoomsFromApi}
       />
@@ -156,11 +179,9 @@ export async function getServerSideProps(context) {
 
   const { role, instituicao } = jwt.decode(userToken);
 
-  console.log(role, instituicao);
-
   return {
     props: {
-      role: role,
+      token: userToken,
       idInstituicao: instituicao,
     },
   };

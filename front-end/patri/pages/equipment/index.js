@@ -32,6 +32,7 @@ const roomsData = [
 
 const roomsColumns = [
   '#',
+  'Sala',
   'Marca',
   'Tipo',
   'Nº de série',
@@ -40,9 +41,10 @@ const roomsColumns = [
   'Status',
 ];
 
-export default function Equipment({ equipmentList }) {
+export default function Equipment({ idInstituicao, token }) {
   const [showModal, setShowModal] = useState(false);
-  // const [equipmentList, setEquipmentList] = useState('');
+  const [equipment, setEquipment] = useState([]);
+  const [equipmentRoom, setEquipmentRoom] = useState('');
   const [equipmentDeveloper, setEquipmentDeveloper] = useState('');
   const [equipmentType, setEquipmentType] = useState('');
   const [equipmentSerialNumber, setEquipmentSerialNumber] = useState('');
@@ -50,25 +52,81 @@ export default function Equipment({ equipmentList }) {
   const [equipmentPatrimonyNumber, setEquipmentPatrimonyNumber] = useState('');
   const [equipmentStatus, setEquipmentStatus] = useState('');
 
+  async function getEquipmentFromApi() {
+    const res = await fetch(
+      `http://localhost:5000/api/equipamentos/por-insti/${idInstituicao}`
+    )
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
+
+    const equipment = await res.map((x) => ({
+      id: x.idEquipamento,
+      roomName: x.idSalaNavigation.nomeSala,
+      developer: x.marca,
+      type: x.idTipoEquipamentoNavigation.nomeTipoEquipamento,
+      serialNumber: x.numeroSerie,
+      description: x.descricao,
+      patrimonyNumber: x.numeroPatrimonio,
+      status: x.statusEquipamento ? 'Ativo' : 'Inativo',
+    }));
+
+    setEquipment(equipment);
+  }
+
+  async function handleCreateEquipment(e) {
+    e.preventDefault();
+
+    const { status } = await fetch('http://localhost:5000/api/equipamentos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+      body: JSON.stringify({
+        idInstituicao: idInstituicao,
+        idSala: equipmentRoom,
+        IdTipoEquipamento: equipmentType,
+        marca: equipmentDeveloper,
+        numeroSerie: equipmentSerialNumber,
+        descricao: equipmentDescription,
+        numeroPatrimonio: equipmentPatrimonyNumber,
+        statusEquipamento: equipmentStatus,
+      }),
+    }).catch((err) => console.error(err));
+
+    if (status === 201) {
+      setShowModal(false);
+      cleanInputs();
+      getEquipmentFromApi();
+    }
+  }
+
+  async function handleRemoveEquipment(id) {
+    const { status } = await fetch(
+      `http://localhost:5000/api/equipamentos/${id}`,
+      {
+        method: 'DELETE',
+      }
+    ).catch((err) => console.error(err));
+
+    if (status === 204) {
+      getEquipmentFromApi();
+    }
+  }
+
+  useEffect(() => {
+    getEquipmentFromApi();
+  }, []);
+
   function cleanInputs() {
+    setEquipmentRoom('');
     setEquipmentDeveloper('');
     setEquipmentType('');
     setEquipmentSerialNumber('');
     setEquipmentDescription('');
     setEquipmentPatrimonyNumber('');
     setEquipmentStatus('');
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log(equipmentDeveloper);
-    console.log(equipmentType);
-    console.log(equipmentSerialNumber);
-    console.log(equipmentDescription);
-    console.log(equipmentPatrimonyNumber);
-    console.log(equipmentStatus);
-    setShowModal(false);
-    cleanInputs();
   }
 
   return (
@@ -88,37 +146,49 @@ export default function Equipment({ equipmentList }) {
         <Modal onClose={() => setShowModal(false)} show={showModal}>
           <FormWrapper>
             <h1 className="modalTitle">+ Nova sala</h1>
-            <form onSubmit={(e) => handleSubmit(e)}>
+            <form onSubmit={(e) => handleCreateEquipment(e)}>
               <div className="formInputs">
+                <Input
+                  placeholder="Sala"
+                  value={equipmentRoom}
+                  onChange={(e) => setEquipmentRoom(e.target.value)}
+                  required
+                />
                 <Input
                   placeholder="Marca"
                   value={equipmentDeveloper}
                   onChange={(e) => setEquipmentDeveloper(e.target.value)}
+                  required
                 />
                 <Input
                   placeholder="Tipo"
                   value={equipmentType}
                   onChange={(e) => setEquipmentType(e.target.value)}
+                  required
                 />
                 <Input
                   placeholder="Nº de série"
                   value={equipmentSerialNumber}
                   onChange={(e) => setEquipmentSerialNumber(e.target.value)}
+                  required
                 />
                 <Input
                   placeholder="Descrição"
                   value={equipmentDescription}
                   onChange={(e) => setEquipmentDescription(e.target.value)}
+                  required
                 />
                 <Input
                   placeholder="Nº de patrimônio"
                   value={equipmentPatrimonyNumber}
                   onChange={(e) => setEquipmentPatrimonyNumber(e.target.value)}
+                  required
                 />
                 <Input
                   placeholder="Status"
                   value={equipmentStatus}
                   onChange={(e) => setEquipmentStatus(e.target.value)}
+                  // required
                 />
               </div>
               <div className="links modal">
@@ -139,31 +209,50 @@ export default function Equipment({ equipmentList }) {
           </FormWrapper>
         </Modal>
       </div>
-      <Table columns={roomsColumns} data={equipmentList} role="1" />
+      <Table
+        columns={roomsColumns}
+        data={equipment}
+        userToken={token}
+        idInstituicao={idInstituicao}
+        handleRemove={handleRemoveEquipment}
+        updateTable={getEquipmentFromApi}
+      />
     </PageWrapper>
   );
 }
 
 export async function getServerSideProps(context) {
-  const res = await fetch('http://localhost:5000/api/equipamentos')
-    .then((res) => res.json())
-    .catch((err) => console.error(err));
+  const userToken = await nookies.get(context).token;
 
-  const equipment = res.map((x) => ({
-    id: x.idEquipamento,
-    marca: x.marca,
-    tipo: x.idTipoEquipamentoNavigation.nomeTipoEquipamento,
-    numSerie: x.numeroSerie,
-    descricao: x.descricao,
-    numPatrimonio: x.numeroPatrimonio,
-    status: x.statusEquipamento,
-  }));
+  if (!userToken) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanet: false,
+      },
+    };
+  }
 
-  console.log(equipment);
+  const { instituicao } = jwt.decode(userToken);
+
+  // const res = await fetch('http://localhost:5000/api/equipamentos')
+  //   .then((res) => res.json())
+  //   .catch((err) => console.error(err));
+
+  // const equipment = res.map((x) => ({
+  //   id: x.idEquipamento,
+  //   marca: x.marca,
+  //   tipo: x.idTipoEquipamentoNavigation.nomeTipoEquipamento,
+  //   numSerie: x.numeroSerie,
+  //   descricao: x.descricao,
+  //   numPatrimonio: x.numeroPatrimonio,
+  //   status: x.statusEquipamento ? 'Ativo' : 'Inativo',
+  // }));
 
   return {
     props: {
-      equipmentList: equipment,
+      token: userToken,
+      idInstituicao: instituicao,
     },
   };
 }
