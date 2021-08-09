@@ -11,6 +11,8 @@ export function Table({
   updateTable,
   handleRemove,
   idInstituicao,
+  roomList,
+  equipmentTypesList,
 }) {
   const router = useRouter();
 
@@ -121,30 +123,61 @@ export function Table({
           <td key={index}>
             <span>
               {inEditMode.status && inEditMode.rowKey === item.id ? (
-                <input
-                  className="table__input"
-                  type="text"
-                  defaultValue={row.value}
-                  onChange={(e) => {
-                    row.key === 'Andar' && setFloor(e.target.value);
-                    row.key === 'Nome' && setName(e.target.value);
-                    row.key === 'Metragem' && setFootage(e.target.value);
-                    row.key === 'Sala' && setEquipmentRoom(e.target.value);
-                    row.key === 'Marca' &&
-                      setEquipmentDeveloper(e.target.value);
-                    row.key === 'Tipo' && setEquipmentType(e.target.value);
-                    row.key === 'Nº de série' &&
-                      setEquipmentSerialNumber(e.target.value);
-                    row.key === 'Descrição' &&
-                      setEquipmentDescription(e.target.value);
-                    row.key === 'Nº de patrimônio' &&
-                      setEquipmentPatrimonyNumber(e.target.value);
-                    row.key === 'Status' &&
-                      setEquipmentStatus(
-                        e.target.value === 'Ativo' ? true : false
-                      );
-                  }}
-                />
+                row.key === 'Sala' ||
+                row.key === 'Tipo' ||
+                row.key === 'Status' ? (
+                  <select
+                    defaultValue={row.value}
+                    onChange={(e) => {
+                      row.key === 'Sala' && setEquipmentRoom(e.target.value);
+                      row.key === 'Tipo' && setEquipmentType(e.target.value);
+                    }}
+                  >
+                    <option value="0">{row.value}</option>
+                    {(row.key === 'Sala' &&
+                      roomList.map((r) => {
+                        return (
+                          <option key={r.id} value={r.id}>
+                            {r.name}
+                          </option>
+                        );
+                      })) ||
+                      (row.key === 'Tipo' &&
+                        equipmentTypesList.map((et) => {
+                          return (
+                            <option
+                              key={et.idTipoEquipamento}
+                              value={et.idTipoEquipamento}
+                            >
+                              {et.nomeTipoEquipamento}
+                            </option>
+                          );
+                        }))}
+                  </select>
+                ) : (
+                  <input
+                    className="table__input"
+                    type="text"
+                    defaultValue={row.value}
+                    onChange={(e) => {
+                      row.key === 'Andar' && setFloor(e.target.value);
+                      row.key === 'Nome' && setName(e.target.value);
+                      row.key === 'Metragem' && setFootage(e.target.value);
+                      row.key === 'Marca' &&
+                        setEquipmentDeveloper(e.target.value);
+                      row.key === 'Nº de série' &&
+                        setEquipmentSerialNumber(e.target.value);
+                      row.key === 'Descrição' &&
+                        setEquipmentDescription(e.target.value);
+                      row.key === 'Nº de patrimônio' &&
+                        setEquipmentPatrimonyNumber(e.target.value);
+                      row.key === 'Status' &&
+                        setEquipmentStatus(
+                          e.target.value === 'Ativo' ? true : false
+                        );
+                    }}
+                  />
+                )
               ) : (
                 row.value
               )}

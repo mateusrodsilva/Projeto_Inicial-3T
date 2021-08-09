@@ -275,6 +275,8 @@ export default function Equipment({ idInstituicao, token }) {
         idInstituicao={idInstituicao}
         handleRemove={handleRemoveEquipment}
         updateTable={getEquipmentFromApi}
+        roomList={roomList}
+        equipmentTypesList={equipmentTypesList}
       />
     </PageWrapper>
   );
