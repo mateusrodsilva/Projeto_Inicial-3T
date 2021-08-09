@@ -8,6 +8,7 @@ import Modal from '../../src/components/common/Modal';
 import { FormWrapper } from '../../src/components/FormWrapper';
 import nookies from 'nookies';
 import jwt from 'jsonwebtoken';
+import { Select } from '../../src/components/common/Select';
 
 const roomsData = [
   {
@@ -44,6 +45,10 @@ const roomsColumns = [
 export default function Equipment({ idInstituicao, token }) {
   const [showModal, setShowModal] = useState(false);
   const [equipment, setEquipment] = useState([]);
+
+  const [roomList, setRoomList] = useState([]);
+  const [equipmentTypesList, setEquipmentTypesList] = useState([]);
+
   const [equipmentRoom, setEquipmentRoom] = useState('');
   const [equipmentDeveloper, setEquipmentDeveloper] = useState('');
   const [equipmentType, setEquipmentType] = useState('');
@@ -54,7 +59,7 @@ export default function Equipment({ idInstituicao, token }) {
 
   async function getEquipmentFromApi() {
     const res = await fetch(
-      `http://localhost:5000/api/equipamentos/por-insti/${idInstituicao}`
+      `http://localhost:5000/api/equipamentos/por-instituicao/${idInstituicao}`
     )
       .then((res) => res.json())
       .catch((err) => console.error(err));
@@ -71,6 +76,31 @@ export default function Equipment({ idInstituicao, token }) {
     }));
 
     setEquipment(equipment);
+  }
+
+  async function getRoomsFromApi() {
+    const res = await fetch(
+      `http://localhost:5000/api/salas/por-instituicao/${idInstituicao}`
+    )
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+
+    const roomList = res.map((x) => ({
+      id: x.idSala,
+      floor: x.andar,
+      name: x.nomeSala,
+      footage: x.metragemSala,
+    }));
+
+    setRoomList(roomList);
+  }
+
+  async function getEquipmentTypesFromApi() {
+    const res = await fetch(`http://localhost:5000/api/tiposequipamento`)
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
+
+    setEquipmentTypesList(res);
   }
 
   async function handleCreateEquipment(e) {
@@ -107,6 +137,11 @@ export default function Equipment({ idInstituicao, token }) {
       `http://localhost:5000/api/equipamentos/${id}`,
       {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: 'Bearer ' + token,
+        },
       }
     ).catch((err) => console.error(err));
 
@@ -117,6 +152,8 @@ export default function Equipment({ idInstituicao, token }) {
 
   useEffect(() => {
     getEquipmentFromApi();
+    getRoomsFromApi();
+    getEquipmentTypesFromApi();
   }, []);
 
   function cleanInputs() {
@@ -128,6 +165,9 @@ export default function Equipment({ idInstituicao, token }) {
     setEquipmentPatrimonyNumber('');
     setEquipmentStatus('');
   }
+
+  console.log(equipmentRoom);
+  console.log(equipmentType);
 
   return (
     <PageWrapper>
@@ -145,27 +185,44 @@ export default function Equipment({ idInstituicao, token }) {
         </div>
         <Modal onClose={() => setShowModal(false)} show={showModal}>
           <FormWrapper>
-            <h1 className="modalTitle">+ Nova sala</h1>
+            <h1 className="modalTitle">+ Novo equipamento</h1>
             <form onSubmit={(e) => handleCreateEquipment(e)}>
               <div className="formInputs">
-                <Input
-                  placeholder="Sala"
+                <Select
                   value={equipmentRoom}
                   onChange={(e) => setEquipmentRoom(e.target.value)}
-                  required
-                />
+                >
+                  <option value="0">Selecione a sala</option>
+                  {roomList.map((er) => {
+                    return (
+                      <option key={er.id} value={er.id}>
+                        {er.name}
+                      </option>
+                    );
+                  })}
+                </Select>
                 <Input
                   placeholder="Marca"
                   value={equipmentDeveloper}
                   onChange={(e) => setEquipmentDeveloper(e.target.value)}
                   required
                 />
-                <Input
-                  placeholder="Tipo"
+                <Select
                   value={equipmentType}
                   onChange={(e) => setEquipmentType(e.target.value)}
-                  required
-                />
+                >
+                  <option value="0">Selecione o tipo de equipamento</option>
+                  {equipmentTypesList.map((et) => {
+                    return (
+                      <option
+                        key={et.idTipoEquipamento}
+                        value={et.idTipoEquipamento}
+                      >
+                        {et.nomeTipoEquipamento}
+                      </option>
+                    );
+                  })}
+                </Select>
                 <Input
                   placeholder="Nº de série"
                   value={equipmentSerialNumber}
@@ -184,12 +241,14 @@ export default function Equipment({ idInstituicao, token }) {
                   onChange={(e) => setEquipmentPatrimonyNumber(e.target.value)}
                   required
                 />
-                <Input
-                  placeholder="Status"
+                <Select
                   value={equipmentStatus}
                   onChange={(e) => setEquipmentStatus(e.target.value)}
-                  // required
-                />
+                >
+                  <option value="0">Selecione a sala</option>
+                  <option value={true}>Ativo</option>
+                  <option value={false}>Inativo</option>
+                </Select>
               </div>
               <div className="links modal">
                 <Button

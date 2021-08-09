@@ -36,7 +36,7 @@ export function Table({
       status: true,
       rowKey: rowItem.id,
     });
-    // console.log(rowItem);
+
     setFloor(rowItem.floor);
     setName(rowItem.name);
     setFootage(rowItem.footage);

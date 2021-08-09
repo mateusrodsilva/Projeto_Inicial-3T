@@ -65,12 +65,19 @@ export default function Rooms({ idInstituicao, token }) {
   }
 
   async function handleRemoveRoom(id) {
-    const { status } = await fetch(`http://localhost:5000/api/salas/${id}`, {
-      method: 'DELETE',
-    }).catch((err) => console.error(err));
+    if (window.confirm('Tem certeza que deseja excluir essa sala?')) {
+      const { status } = await fetch(`http://localhost:5000/api/salas/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: 'Bearer ' + token,
+        },
+      }).catch((err) => console.error(err));
 
-    if (status === 204) {
-      getRoomsFromApi();
+      if (status === 204) {
+        getRoomsFromApi();
+      }
     }
   }
 
