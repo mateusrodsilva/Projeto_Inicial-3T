@@ -1,0 +1,39 @@
+CREATE DATABASE patri;
+
+USE patri;
+
+CREATE TABLE instituicao(
+idInstituicao int primary key identity,
+nome VARCHAR(150),
+razaoSocial VARCHAR(150),
+cnpj VARCHAR(14),
+endereco VARCAHR(150))
+
+CREATE TABLE usuario(
+idUsuario int primary key identity,
+idInstituicao int foreign key references instituicao(idInstituicao),
+email VARCHAR(150),
+senha VARCHAR(150),
+tipo VARCHAR(20)
+)
+
+CREATE TABLE sala(
+idSala int primary key identity,
+idInstituicao int foreign key references instituicao(idInstituicao),
+andar VARCHAR(20) not null,
+nomeSala VARCHAR(150) not null
+)
+
+CREATE TABLE tipoEquipamento(
+idTipoEquipamento int primary key identity,
+nomeEquipamento VARCHAR(150))
+
+CREATE TABLE equipamento(
+idEquipamento int primary key identity,
+idTipoEquipamento int foreign key references tipoEquipamento(idTipoEquipamento),
+idSala int foreign key references sala(idSala),
+marca VARCHAR(100) not null,
+numeroSerie VARCHAR(100) not null,
+descricao VARCHAR(100) not null,
+numeroPatrimonio VARCHAR(100) not null,
+status VARCHAR(100) not null)
