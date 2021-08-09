@@ -27,6 +27,45 @@ namespace senai.patri.webapi.Repositories
             }
         }
 
+        public List<Equipamento> BuscarEquipamentosInsti(int idInsti)
+        {
+            return ctx.Equipamentos
+               .Select(e => new Equipamento
+               {
+                   IdEquipamento = e.IdEquipamento,
+                   Descricao = e.Descricao,
+                   Marca = e.Marca,
+                   NumeroSerie = e.NumeroSerie,
+                   NumeroPatrimonio = e.NumeroPatrimonio,
+                   StatusEquipamento = e.StatusEquipamento,
+                   IdSala = e.IdSala,
+                   IdTipoEquipamento = e.IdTipoEquipamento,
+                   IdInstituicao = e.IdInstituicao,
+
+                   IdInstituicaoNavigation = new Instituicao
+                   {
+                       Nome = e.IdInstituicaoNavigation.Nome,
+                       Cnpj = e.IdInstituicaoNavigation.Cnpj,
+                       RazaoSocial = e.IdInstituicaoNavigation.RazaoSocial,
+                       IdInstituicao = e.IdInstituicaoNavigation.IdInstituicao
+                   },
+
+                   IdTipoEquipamentoNavigation = new TipoEquipamento
+                   {
+                       NomeTipoEquipamento = e.IdTipoEquipamentoNavigation.NomeTipoEquipamento
+                   },
+
+                   IdSalaNavigation = new Sala
+                   {
+                       IdSala = e.IdSalaNavigation.IdSala,
+                       NomeSala = e.IdSalaNavigation.NomeSala
+                   }
+
+               })
+               .Where(w => w.IdInstituicao == idInsti )
+               .ToList();
+        }
+
         public List<Equipamento> BuscarEquipamentosSala(int idSala)
         {
             return ctx.Equipamentos
@@ -40,13 +79,14 @@ namespace senai.patri.webapi.Repositories
                     StatusEquipamento = e.StatusEquipamento,
                     IdSala = e.IdSala,
                     IdTipoEquipamento = e.IdTipoEquipamento,
+                    IdInstituicao = e.IdInstituicao,
 
                     IdInstituicaoNavigation = new Instituicao
                     {
-                        Nome = w.IdInstituicaoNavigation.Nome,
-                        Cnpj = w.IdInstituicaoNavigation.Cnpj,
-                        RazaoSocial = w.IdInstituicaoNavigation.RazaoSocial,
-                        IdInstituicao = w.IdInstituicaoNavigation.IdInstituicao
+                        Nome = e.IdInstituicaoNavigation.Nome,
+                        Cnpj = e.IdInstituicaoNavigation.Cnpj,
+                        RazaoSocial = e.IdInstituicaoNavigation.RazaoSocial,
+                        IdInstituicao = e.IdInstituicaoNavigation.IdInstituicao
                     },
 
                     IdTipoEquipamentoNavigation = new TipoEquipamento

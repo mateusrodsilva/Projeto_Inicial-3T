@@ -42,6 +42,12 @@ namespace senai.patri.webapi.Controllers
             return Ok(_equipamentoRepository.BuscarEquipamentosSala(id));
         }
 
+        [HttpGet("por-insti/{id}")]
+        public IActionResult GetByInstituicao(int id)
+        {
+            return Ok(_equipamentoRepository.BuscarEquipamentosInsti(id));
+        }
+
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Post(Equipamento NovoEquipamento)
