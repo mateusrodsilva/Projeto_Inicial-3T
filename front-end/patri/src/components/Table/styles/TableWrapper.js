@@ -17,6 +17,7 @@ export const TableWrapper = styled.div`
     border-spacing: 0;
 
     input {
+      max-width: 48%;
       border: none;
       outline: none;
       margin: 0;
@@ -32,6 +33,12 @@ export const TableWrapper = styled.div`
       padding: 0;
       font-size: 16px;
       border-bottom: 1px solid ${({ theme }) => theme.primary};
+
+      option {
+        padding: 0 18px;
+        border: none;
+        outline: none;
+      }
     }
   }
 

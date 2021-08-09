@@ -133,7 +133,6 @@ export function Table({
                       row.key === 'Tipo' && setEquipmentType(e.target.value);
                     }}
                   >
-                    <option value="0">{row.value}</option>
                     {(row.key === 'Sala' &&
                       roomList.map((r) => {
                         return (
@@ -152,7 +151,13 @@ export function Table({
                               {et.nomeTipoEquipamento}
                             </option>
                           );
-                        }))}
+                        })) ||
+                      (row.key === 'Status' && (
+                        <>
+                          <option value={true}>Ativo</option>
+                          <option value={false}>Inativo</option>
+                        </>
+                      ))}
                   </select>
                 ) : (
                   <input
