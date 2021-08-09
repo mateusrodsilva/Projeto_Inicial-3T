@@ -27,7 +27,7 @@ namespace senai.patri.webapi.Controllers
             return Ok(_tipoEquipamentoRepository.Listar());
         }
 
-        [HttpGet("tipo-equipamento/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             return Ok(_tipoEquipamentoRepository.BuscarPorId(id));
@@ -43,7 +43,7 @@ namespace senai.patri.webapi.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult Put(int id, TipoEquipamento TipoEquipamentoAtt)
         {
             _tipoEquipamentoRepository.Atualizar(id, TipoEquipamentoAtt);
@@ -51,7 +51,7 @@ namespace senai.patri.webapi.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _tipoEquipamentoRepository.Deletar(id);

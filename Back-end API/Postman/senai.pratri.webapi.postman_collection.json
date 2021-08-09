@@ -14,7 +14,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "www.localhost:5000/api/sala/listarsalas",
+							"raw": "www.localhost:5000/api/sala",
 							"host": [
 								"www",
 								"localhost"
@@ -22,8 +22,7 @@
 							"port": "5000",
 							"path": [
 								"api",
-								"sala",
-								"listarsalas"
+								"sala"
 							]
 						}
 					},
@@ -57,7 +56,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "www.localhost:5000/api/sala/salasporinstituicao/1",
+							"raw": "www.localhost:5000/api/sala/salas-por-instituicao/1",
 							"host": [
 								"www",
 								"localhost"
@@ -66,7 +65,7 @@
 							"path": [
 								"api",
 								"sala",
-								"salasporinstituicao",
+								"salas-por-instituicao",
 								"1"
 							]
 						}
@@ -132,11 +131,23 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Deletesala",
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "www.localhost:5000/api/sala/id",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"sala",
+								"id"
+							]
+						}
 					},
 					"response": []
 				}
@@ -150,7 +161,18 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "www.localhost:5000/api/equipamento",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"equipamento"
+							]
+						}
 					},
 					"response": []
 				},
@@ -199,10 +221,41 @@
 					"response": []
 				},
 				{
+					"name": "EquipamentoPorInstituicao",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "www.localhost:5000/api/equipamentos/por-insti/1",
+							"host": [
+								"www",
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"equipamentos",
+								"por-insti",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "CadastroEquipamento",
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"IdSala\" : \"1\",\r\n    \"Marca\" : \"teste\",\r\n    \"NumeroSerie\": \"teste\",\r\n    \"Descricao\" : \"teste\",\r\n    \"NumeroPatrimonio\" : \"teste\",\r\n    \"StatusEquipamento\" : \"ativo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "www.localhost:5000/api/equipamento",
 							"host": [
@@ -224,7 +277,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "www.localhost:5000/api/equipamento",
+							"raw": "www.localhost:5000/api/equipamentos/id",
 							"host": [
 								"www",
 								"localhost"
@@ -232,7 +285,8 @@
 							"port": "5000",
 							"path": [
 								"api",
-								"equipamento"
+								"equipamentos",
+								"id"
 							]
 						}
 					},
@@ -244,7 +298,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "www.localhost:5000/api/equipamento/id",
+							"raw": "www.localhost:5000/api/equipamentos/id",
 							"host": [
 								"www",
 								"localhost"
@@ -252,7 +306,269 @@
 							"port": "5000",
 							"path": [
 								"api",
-								"equipamento",
+								"equipamentos",
+								"id"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Instituicao",
+			"item": [
+				{
+					"name": "CadastroInsti",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Nome\" : \"teste\",\r\n    \"razaoSocial\": \"teste\",\r\n    \"cnpj\": \"teste\",\r\n    \"endereco\": \"teste\",\r\n    \"email\" : \"teste@test\",\r\n    \"senha\" : \"teste\"\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/instituicoes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"instituicoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "ListarUsuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/Usuario",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Usuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarUsuarioPorId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/Usuario/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Usuario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CadastrarUsuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "AtualizarUsuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/Usuario/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Usuario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletarUsuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/Usuarios/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TipoEquipamento",
+			"item": [
+				{
+					"name": "ListarTipoEquipamento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/TiposEquipamento",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"TiposEquipamento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarTiposEquipamentoporId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/TiposEquipamento/id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"TiposEquipamento",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CadastroTipoEquipamento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/TiposEquipamento",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"TiposEquipamento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AtualizacaoTipoEquipamento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/TiposEquipamento/id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"TiposEquipamento",
+								"id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteTipoEquipamento",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/TiposEquipamento/id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"TiposEquipamento",
 								"id"
 							]
 						}

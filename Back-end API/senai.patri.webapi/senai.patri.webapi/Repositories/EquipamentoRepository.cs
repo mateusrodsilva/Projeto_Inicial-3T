@@ -16,8 +16,9 @@ namespace senai.patri.webapi.Repositories
         {
             Equipamento EquipamentoBuscado = ctx.Equipamentos.Find(id);
 
-            if (EquipamentoAtt.Marca != null && EquipamentoAtt.IdTipoEquipamento != null && EquipamentoAtt.NumeroSerie != null && EquipamentoAtt.Descricao != null && EquipamentoAtt.NumeroPatrimonio != null && EquipamentoAtt.StatusEquipamento != null)
+            if (EquipamentoAtt.IdInstituicao != null && EquipamentoAtt.Marca != null && EquipamentoAtt.IdTipoEquipamento != null && EquipamentoAtt.NumeroSerie != null && EquipamentoAtt.Descricao != null && EquipamentoAtt.NumeroPatrimonio != null && EquipamentoAtt.StatusEquipamento != null)
             {
+                EquipamentoBuscado.IdInstituicao = EquipamentoAtt.IdInstituicao;
                 EquipamentoBuscado.Marca = EquipamentoAtt.Marca;
                 EquipamentoBuscado.IdTipoEquipamento = EquipamentoAtt.IdTipoEquipamento;
                 EquipamentoBuscado.NumeroSerie = EquipamentoAtt.NumeroSerie;
@@ -25,6 +26,9 @@ namespace senai.patri.webapi.Repositories
                 EquipamentoBuscado.NumeroPatrimonio = EquipamentoAtt.NumeroPatrimonio;
                 EquipamentoBuscado.StatusEquipamento = EquipamentoAtt.StatusEquipamento;
             }
+
+            ctx.Equipamentos.Update(EquipamentoBuscado);
+            ctx.SaveChanges();
         }
 
         public List<Equipamento> BuscarEquipamentosInsti(int idInsti)
