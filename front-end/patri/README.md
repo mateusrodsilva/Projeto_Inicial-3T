@@ -14,7 +14,7 @@ O **Patri** é uma aplicação web com o intuito de facilitar o gerenciamento do
 
 Para desenvolver esta aplicação foi utilizado metodologias ágeis Scrum e Kanban, facilitando a organização, designação de tarefas e definição de prazos de entrega.
 
-Os desenvolvedores que participaram deste projeto, foram: _[Vinícius Figueiroa](https://github.com/mateusrodsilva)_, _[Mateus Rodrigues](https://github.com/mateusrodsilva)_, _[Renato Alves](https://github.com/renatoalvesdv)_, e _[Pedro Felipe](https://github.com/pedro)_
+Os desenvolvedores que participaram deste projeto, foram: _[Vinícius Figueiroa](https://github.com/mateusrodsilva)_, _[Mateus Rodrigues](https://github.com/mateusrodsilva)_, _[Renato Alves](https://github.com/renatoalvesdv)_, e _[Pedro Felipe](https://github.com/pedrofelip)_
 
 <!-- Ao logar na aplicação com nosso username do GitHub vamos para a página home, nela vemos nossos amigos (seguidores do GitHub), as comunidades que participamos, e os últimos recados deixados. Além disso é possível criar novas comunidades e novos recados! -->
 
