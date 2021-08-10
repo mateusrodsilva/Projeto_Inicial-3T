@@ -186,6 +186,8 @@ export function Table({
                     }}
                   />
                 )
+              ) : row.key === 'Metragem' ? (
+                row.value + 'm²'
               ) : (
                 row.value
               )}
