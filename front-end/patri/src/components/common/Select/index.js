@@ -21,10 +21,6 @@ export const SelectWrapper = styled.div`
     border: none;
     outline: none;
     color: #333;
-
-    option {
-      color: #c4c4c4;
-    }
   }
 `;
 

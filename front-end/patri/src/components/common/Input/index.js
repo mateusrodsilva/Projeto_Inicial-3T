@@ -32,11 +32,16 @@ export const InputWrapper = styled.div`
   }
 `;
 
-export function Input({ icon, placeholder, value, onChange }) {
+export function Input({ icon, placeholder, type, value, onChange }) {
   return (
     <InputWrapper>
       {icon}
-      <input placeholder={placeholder} value={value} onChange={onChange} />
+      <input
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        type={type}
+      />
     </InputWrapper>
   );
 }

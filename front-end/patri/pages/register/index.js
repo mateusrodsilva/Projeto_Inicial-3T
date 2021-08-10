@@ -18,6 +18,12 @@ export default function Register() {
 
   async function handleRegister(e) {
     e.preventDefault();
+    console.log(institutionName);
+    console.log(institutionSocialReason);
+    console.log(institutionCnpj);
+    console.log(institutionAddress);
+    console.log(institutionEmail);
+    console.log(institutionPassword);
 
     const { status } = await fetch('http://localhost:5000/api/instituicoes', {
       method: 'POST',
@@ -83,6 +89,7 @@ export default function Register() {
             <Input
               placeholder="Senha"
               value={institutionPassword}
+              type="password"
               onChange={(e) => setinstitutionPassword(e.target.value)}
             />
           </div>
@@ -94,7 +101,7 @@ export default function Register() {
               </NextLink>
             </div>
             <Button colorType="done" type="submit">
-              Entrar
+              Cadastrar
             </Button>
           </div>
         </form>

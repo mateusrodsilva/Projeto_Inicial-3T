@@ -131,6 +131,8 @@ export function Table({
                     onChange={(e) => {
                       row.key === 'Sala' && setEquipmentRoom(e.target.value);
                       row.key === 'Tipo' && setEquipmentType(e.target.value);
+                      row.key === 'Status' &&
+                        setEquipmentStatus(e.target.value);
                     }}
                   >
                     <option>{row.value}</option>

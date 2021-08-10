@@ -247,7 +247,7 @@ export default function Equipment({ idInstituicao, token }) {
                   value={equipmentStatus}
                   onChange={(e) => setEquipmentStatus(e.target.value)}
                 >
-                  <option value="0">Selecione a sala</option>
+                  <option value="0">Selecione o status</option>
                   <option value={true}>Ativo</option>
                   <option value={false}>Inativo</option>
                 </Select>
@@ -263,7 +263,7 @@ export default function Equipment({ idInstituicao, token }) {
                   Cancelar
                 </Button>
                 <Button colorType="done" type="submit">
-                  Entrar
+                  Cadastrar
                 </Button>
               </div>
             </form>

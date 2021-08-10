@@ -153,7 +153,7 @@ export default function Rooms({ idInstituicao, token }) {
                   Cancelar
                 </Button>
                 <Button colorType="done" type="submit">
-                  Entrar
+                  Cadastrar
                 </Button>
               </div>
             </form>
