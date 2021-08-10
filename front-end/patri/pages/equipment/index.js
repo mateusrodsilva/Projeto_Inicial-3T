@@ -133,20 +133,22 @@ export default function Equipment({ idInstituicao, token }) {
   }
 
   async function handleRemoveEquipment(id) {
-    const { status } = await fetch(
-      `http://localhost:5000/api/equipamentos/${id}`,
-      {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: 'Bearer ' + token,
-        },
-      }
-    ).catch((err) => console.error(err));
+    if (window.confirm('Tem certeza que deseja excluir esse equipamento?')) {
+      const { status } = await fetch(
+        `http://localhost:5000/api/equipamentos/${id}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + token,
+          },
+        }
+      ).catch((err) => console.error(err));
 
-    if (status === 204) {
-      getEquipmentFromApi();
+      if (status === 204) {
+        getEquipmentFromApi();
+      }
     }
   }
 

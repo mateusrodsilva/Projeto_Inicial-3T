@@ -20,7 +20,7 @@ export function Header({ toggleTheme }) {
   return (
     <HeaderWrapper>
       <div>
-        <span>SENAI Informática</span>
+        <img style={{ marginLeft: '20px' }} src="./patri.svg" />
       </div>
       <div className="headerIcons">
         {/* <Switch

@@ -133,6 +133,7 @@ export function Table({
                       row.key === 'Tipo' && setEquipmentType(e.target.value);
                     }}
                   >
+                    <option>{row.value}</option>
                     {(row.key === 'Sala' &&
                       roomList.map((r) => {
                         return (
